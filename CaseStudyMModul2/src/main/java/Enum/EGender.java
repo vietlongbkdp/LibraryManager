@@ -9,10 +9,10 @@ public enum EGender {
     MALE("Nam", 1),
     OTHER("Khác", 3);
     private String name;
-    private int value;
+    private int id;
     EGender(String name, int value) {
         this.name = name;
-        this.value = value;
+        this.id = id;
     }
 
     public void setName(String name) {
@@ -20,6 +20,15 @@ public enum EGender {
     }
 
     public void setValue(int value) {
-        this.value = value;
+        this.id = id;
     }
+    public static EGender findByname(String name) {
+        for (EGender e : values()) {
+            if ((e.getName().equals(name))){
+                return e;
+            }
+        }
+        return null;
+    }
+
 }

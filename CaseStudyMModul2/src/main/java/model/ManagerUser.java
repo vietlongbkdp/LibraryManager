@@ -13,5 +13,11 @@ import java.util.List;
 public class ManagerUser {
     private List<User> userList;
 
+    @Override
+    public String toString() {
+        return "ManagerUser{" +
+                "userList=" + userList +
+                '}';
+    }
 }
 

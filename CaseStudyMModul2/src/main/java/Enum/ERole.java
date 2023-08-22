@@ -22,4 +22,12 @@ public enum ERole {
     public void setValue(int value) {
         this.value = value;
     }
+    public static ERole findByRole(String role) {
+        for (ERole e : values()) {
+            if ((e.getRole().equals(role))){
+                return e;
+            }
+        }
+        return null;
+    }
 }
