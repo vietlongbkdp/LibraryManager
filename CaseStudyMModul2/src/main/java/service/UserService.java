@@ -5,87 +5,117 @@ import model.User;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import Enum.ERole;
 import Enum.EGender;
 
+import javax.jws.Oneway;
 
-public class UserService implements IUserService{
+
+public class UserService implements IUserService {
     File folder = new File("data");
     boolean a = folder.mkdir();
     File userFile = new File("./data/user.txt");
-
-
     @Override
-    public void addUser(User user){
-        try {
-            FileWriter userFileIn = new FileWriter(userFile, true);
-            userFileIn.write(user.toString());
-            userFileIn.close();
-
-        } catch (FileNotFoundException ignored){
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void addUser(User user) {
+        List<User> userList = this.getAllUser();
+        if (userList.isEmpty()){
+            userList.add(user);
+        }else if (!(checkExist(user, userList))){
+            userList.add(user);
         }
-
+        this.writeData(userList);
     }
-
+    public boolean checkExist(User user, List<User> list) {
+        for (User u : list) {
+            if (u.getId() == user.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
     @Override
     public void deleteUser(long id) {
-
+        List<User> userList = this.getAllUser();
+        if (!userList.isEmpty()) {
+            userList.removeIf(u -> u.getId() == id);
+            this.writeData(userList);
+        }
     }
-
     @Override
-    public void updateUser(long id, User user) {
-
+    public void updateUser(long id, User userNew) {
+        List<User> userList = this.getAllUser();
+        if(!userList.isEmpty()){
+            for (User u: userList) {
+                if (u.getId()==id){
+                    u.setId(userNew.getId());
+                    u.setName(userNew.getName());
+                    u.setPassword(userNew.getPassword());
+                    u.setAge(userNew.getAge());
+                    u.setEmail(userNew.getEmail());
+                    u.setGender(userNew.getGender());
+                    u.setRole(userNew.getRole());
+                }
+            }
+        }
+        writeData(userList);
     }
-
     @Override
     public User findUser(long id) {
-        return null;
+        List<User> userList = this.getAllUser();
+        if(userList.isEmpty()){
+            return null;
+        } else {
+            return userList.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
+        }
     }
-
     @Override
     public List<User> getAllUser() {
-        List<String> listStrUser = new ArrayList<>();
         List<User> userList = new ArrayList<>();
+        FileReader fileReader = null;
         try {
-            FileReader fileReader = new FileReader(userFile);
+            fileReader = new FileReader(userFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String strLine = null;
-            while ((strLine = bufferedReader.readLine()) != null){
-                listStrUser.add(strLine);
+            String strLine;
+            while ((strLine = bufferedReader.readLine()) != null) {
+                String[] strDataUser = strLine.split(",");
+                User user = new User(Long.parseLong(strDataUser[0]), strDataUser[1], strDataUser[2], Integer.parseInt(strDataUser[3]), strDataUser[4], EGender.findByname(strDataUser[5]), ERole.findByRole(strDataUser[6]));
+                userList.add(user);
             }
             bufferedReader.close();
-            for (String str: listStrUser) {
-                String[] strings = str.split(",");
-                    User user = new User();
-                    user.setId(Long.parseLong(strings[0]));
-                    user.setName(strings[1]);
-                    user.setPassword(strings[2]);
-                    user.setAge(Integer.parseInt(strings[3]));
-                    user.setEmail(strings[4]);
-                    user.setGender(EGender.findByname(strings[5]));
-                    user.setRole(ERole.findByRole(strings[6]));
-//                    User user = new User(Long.parseLong(strings[0]),strings[1],strings[2], Integer.parseInt(strings[3]), strings[4], EGender.valueOf(strings[5]), ERole.valueOf(strings[6]));
-                    userList.add(user);
+        } catch (FileNotFoundException e) {
 
+        } catch (IOException e) {
+
+        }
+        return userList;
+    }
+    public void writeData(List<User> list) {
+        try {
+            FileWriter userFileIn = new FileWriter(userFile);
+            BufferedWriter bufferedWriter = new BufferedWriter(userFileIn);
+            String strInTxt = "";//ko được =null
+            for (User u : list) {
+                strInTxt += u.toString();
             }
-//            listStrUser.stream().forEach(s -> System.out.println(s.toString()));
+            if (strInTxt != null) {
+                bufferedWriter.write(strInTxt);
+            }
+            bufferedWriter.flush();
+            userFileIn.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-
-        return userList;
     }
-
-    public static void main(String[] args) {
-        User user1;
-        user1 = new User(1001, "Nguyễn Viết Long", "123@@", 27, "vietlongbkdp@gmail.com", EGender.MALE, ERole.ADMIN);
-        User user2 = new User(1002, "Hàng Quốc Đạt", "124@@", 26, "vietlongbkdp@gmail.com", EGender.MALE, ERole.USER);
-        UserService us1 = new UserService();
+//    public static void main(String[] args) {
+//        User user1;
+//        user1 = new User(1001, "Nguyễn Viết Long", "123@@", 27, "vietlongbkdp@gmail.com", EGender.MALE, ERole.ADMIN);
+//        User user2 = new User(1002, "Hàng Quốc Đạt", "124@@", 26, "vietlongbkdp@gmail.com", EGender.MALE, ERole.USER);
+//        UserService us1 = new UserService();
 //        us1.addUser(user1);
 //        us1.addUser(user2);
-        System.out.println(us1.getAllUser().toString());
-    }
+////        us1.deleteUser(1003);
+//        us1.updateUser(1002,user1);
+//    }
 }
