@@ -1,38 +1,50 @@
 package service;
 
+import lombok.Getter;
 import model.User;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+
 import Enum.ERole;
 import Enum.EGender;
 
 
-public class UserService implements IUserService{
+@Getter
+public class UserService implements IUserService {
+    List<User> listUserService = new ArrayList<>();
     File folder = new File("data");
     boolean a = folder.mkdir();
     File userFile = new File("./data/user.txt");
 
 
     @Override
-    public void addUser(User user){
-        try {
-            FileWriter userFileIn = new FileWriter(userFile, true);
-            userFileIn.write(user.toString());
-            userFileIn.close();
+    public void addUser(User user) throws IOException {
 
-        } catch (FileNotFoundException ignored){
-
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        List<User> listAddTemp = this.getAllUser();
+        if (! checkExist(user, listAddTemp)) {
+            listAddTemp.add(user);
+            writeUserData(listAddTemp);
         }
-
     }
 
-    @Override
-    public void deleteUser(long id) {
+    public boolean checkExist(User user, List<User> list) {
+        for (User u : list) {
+            if (u.getId() == user.getId()) {
+                return true;
+            } else return false;
+        }
+        return false;
+    }
 
+
+    @Override
+    public List<User> deleteUser(long id) {
+        List<User> listUserDeleted;
+        listUserDeleted = this.getAllUser().stream().filter(user -> user.getId() != id).collect(Collectors.toList());
+        return listUserDeleted;
     }
 
     @Override
@@ -42,23 +54,21 @@ public class UserService implements IUserService{
 
     @Override
     public User findUser(long id) {
-        return null;
+        return this.getAllUser().stream().filter(user -> user.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public List<User> getAllUser() {
-        List<String> listStrUser = new ArrayList<>();
         List<User> userList = new ArrayList<>();
         try {
+//            FileWriter userFileIn = new FileWriter(userFile);
             FileReader fileReader = new FileReader(userFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
             String strLine = null;
-            while ((strLine = bufferedReader.readLine()) != null){
-                listStrUser.add(strLine);
-            }
-            bufferedReader.close();
-            for (String str: listStrUser) {
-                String[] strings = str.split(",");
+            while ((strLine = bufferedReader.readLine()) != null) {
+                String[] strings = strLine.split(",");
+
+                for (String str : strings) {
                     User user = new User();
                     user.setId(Long.parseLong(strings[0]));
                     user.setName(strings[1]);
@@ -67,25 +77,55 @@ public class UserService implements IUserService{
                     user.setEmail(strings[4]);
                     user.setGender(EGender.findByname(strings[5]));
                     user.setRole(ERole.findByRole(strings[6]));
-//                    User user = new User(Long.parseLong(strings[0]),strings[1],strings[2], Integer.parseInt(strings[3]), strings[4], EGender.valueOf(strings[5]), ERole.valueOf(strings[6]));
                     userList.add(user);
-
+                }
             }
-//            listStrUser.stream().forEach(s -> System.out.println(s.toString()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return userList;
+    }
+
+
+    @Override
+    public void writeUserData(List<User> list) {
+        try {
+            FileWriter fileWriter = new FileWriter(userFile);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            String strBuf = null;
+            for (User u : list) {
+                strBuf += u.toString();
+            }
+            if (strBuf != null) {
+                bufferedWriter.write(strBuf);
+            }
+            bufferedWriter.flush();
+            fileWriter.close();
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+
+    public static void main(String[] args) {
+
+        User user1 = new User(1001, "Nguyễn Viết Long", "123@@", 27, "vietlongbkdp@gmail.com", EGender.MALE, ERole.ADMIN);
+        User user2 = new User(1002, "Hàng Quốc Đạt", "124@@", 26, "vietlongbkdp@gmail.com", EGender.MALE, ERole.USER);
+        UserService us1 = new UserService();
+        try {
+            us1.addUser(user1);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            us1.addUser(user2);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return userList;
-    }
-
-    public static void main(String[] args) {
-        User user1;
-        user1 = new User(1001, "Nguyễn Viết Long", "123@@", 27, "vietlongbkdp@gmail.com", EGender.MALE, ERole.ADMIN);
-        User user2 = new User(1002, "Hàng Quốc Đạt", "124@@", 26, "vietlongbkdp@gmail.com", EGender.MALE, ERole.USER);
-        UserService us1 = new UserService();
-//        us1.addUser(user1);
-//        us1.addUser(user2);
-        System.out.println(us1.getAllUser().toString());
+//        System.out.println(us1.getAllUser().toString());
+//
+//        System.out.println(us1.deleteUser(1002).toString());
     }
 }
