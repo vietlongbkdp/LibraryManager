@@ -1,6 +1,5 @@
 package service;
 
-import lombok.Getter;
 import model.User;
 
 import java.io.*;
@@ -11,121 +10,111 @@ import java.util.stream.Collectors;
 import Enum.ERole;
 import Enum.EGender;
 
+import javax.jws.Oneway;
 
-@Getter
+
 public class UserService implements IUserService {
-    List<User> listUserService = new ArrayList<>();
     File folder = new File("data");
     boolean a = folder.mkdir();
     File userFile = new File("./data/user.txt");
 
-
     @Override
-    public void addUser(User user) throws IOException {
-
-        List<User> listAddTemp = this.getAllUser();
-        if (! checkExist(user, listAddTemp)) {
-            listAddTemp.add(user);
-            writeUserData(listAddTemp);
+    public void addUser(User user) {
+        List<User> userList = this.getAllUser();
+        if (userList.isEmpty()) {
+            userList.add(user);
+        } else if (! (checkExist(user, userList))) {
+            userList.add(user);
         }
+        this.writeData(userList);
     }
 
     public boolean checkExist(User user, List<User> list) {
         for (User u : list) {
             if (u.getId() == user.getId()) {
                 return true;
-            } else return false;
+            }
         }
         return false;
     }
 
-
     @Override
-    public List<User> deleteUser(long id) {
-        List<User> listUserDeleted;
-        listUserDeleted = this.getAllUser().stream().filter(user -> user.getId() != id).collect(Collectors.toList());
-        return listUserDeleted;
+    public void deleteUser(long id) {
+        List<User> userList = this.getAllUser();
+        if (! userList.isEmpty()) {
+            userList.removeIf(u -> u.getId() == id);
+            this.writeData(userList);
+        }
     }
 
     @Override
-    public void updateUser(long id, User user) {
-
+    public void updateUser(long id, User userNew) {
+        List<User> userList = this.getAllUser();
+        if (! userList.isEmpty()) {
+            for (User u : userList) {
+                if (u.getId() == id) {
+                    u.setId(userNew.getId());
+                    u.setName(userNew.getName());
+                    u.setPassword(userNew.getPassword());
+                    u.setAge(userNew.getAge());
+                    u.setEmail(userNew.getEmail());
+                    u.setGender(userNew.getGender());
+                    u.setRole(userNew.getRole());
+                }
+            }
+        }
+        writeData(userList);
     }
 
     @Override
     public User findUser(long id) {
-        return this.getAllUser().stream().filter(user -> user.getId() == id).findFirst().orElse(null);
+        List<User> userList = this.getAllUser();
+        if (userList.isEmpty()) {
+            return null;
+        } else {
+            return userList.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
+        }
     }
 
     @Override
     public List<User> getAllUser() {
         List<User> userList = new ArrayList<>();
+        FileReader fileReader = null;
         try {
-//            FileWriter userFileIn = new FileWriter(userFile);
-            FileReader fileReader = new FileReader(userFile);
+            fileReader = new FileReader(userFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-            String strLine = null;
+            String strLine;
             while ((strLine = bufferedReader.readLine()) != null) {
-                String[] strings = strLine.split(",");
-
-                for (String str : strings) {
-                    User user = new User();
-                    user.setId(Long.parseLong(strings[0]));
-                    user.setName(strings[1]);
-                    user.setPassword(strings[2]);
-                    user.setAge(Integer.parseInt(strings[3]));
-                    user.setEmail(strings[4]);
-                    user.setGender(EGender.findByname(strings[5]));
-                    user.setRole(ERole.findByRole(strings[6]));
-                    userList.add(user);
-                }
+                String[] strDataUser = strLine.split(",");
+                User user = new User(Long.parseLong(strDataUser[0]), strDataUser[1], strDataUser[2], Integer.parseInt(strDataUser[3]), strDataUser[4], EGender.findByname(strDataUser[5]), ERole.findByRole(strDataUser[6]));
+                userList.add(user);
             }
+            bufferedReader.close();
+        } catch (FileNotFoundException e) {
+
         } catch (IOException e) {
-            throw new RuntimeException(e);
+
         }
         return userList;
     }
 
 
-    @Override
-    public void writeUserData(List<User> list) {
+    public void writeData(List<User> list) {
         try {
-            FileWriter fileWriter = new FileWriter(userFile);
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            String strBuf = null;
+            FileWriter userFileIn = new FileWriter(userFile);
+            BufferedWriter bufferedWriter = new BufferedWriter(userFileIn);
+            String strInTxt = "";//ko được =null
             for (User u : list) {
-                strBuf += u.toString();
+                strInTxt += u.toString();
             }
-            if (strBuf != null) {
-                bufferedWriter.write(strBuf);
+            if (strInTxt != null) {
+                bufferedWriter.write(strInTxt);
             }
             bufferedWriter.flush();
-            fileWriter.close();
-        } catch (IOException ex) {
-            throw new RuntimeException(ex);
-        }
-
-    }
-
-
-    public static void main(String[] args) {
-
-        User user1 = new User(1001, "Nguyễn Viết Long", "123@@", 27, "vietlongbkdp@gmail.com", EGender.MALE, ERole.ADMIN);
-        User user2 = new User(1002, "Hàng Quốc Đạt", "124@@", 26, "vietlongbkdp@gmail.com", EGender.MALE, ERole.USER);
-        UserService us1 = new UserService();
-        try {
-            us1.addUser(user1);
+            userFileIn.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        try {
-            us1.addUser(user2);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-//        System.out.println(us1.getAllUser().toString());
-//
-//        System.out.println(us1.deleteUser(1002).toString());
     }
+
 }

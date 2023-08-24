@@ -5,20 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
-
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class ManagerUser {
     private List<User> userList;
-
-    @Override
-    public String toString() {
-        return "ManagerUser{" +
-                "userList=" + userList +
-                '}';
-    }
 }
-
