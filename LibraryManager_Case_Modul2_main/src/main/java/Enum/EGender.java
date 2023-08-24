@@ -22,9 +22,17 @@ public enum EGender {
     public void setValue(int value) {
         this.id = value;
     }
-    public static EGender findByname(String name) {
+    public static EGender findByName(String name) {
         for (EGender e : values()) {
             if ((e.getName().equals(name))){
+                return e;
+            }
+        }
+        return null;
+    }
+    public static EGender findById(long id) {
+        for (EGender e : values()) {
+            if (e.getId() == id){
                 return e;
             }
         }

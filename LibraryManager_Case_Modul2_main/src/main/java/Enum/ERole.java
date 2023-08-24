@@ -22,9 +22,17 @@ public enum ERole {
         this.id = value;
     }
 
-    public static ERole findByname(String name) {
+    public static ERole findByName(String name) {
         for (ERole e : values()) {
             if ((e.getName().equals(name))) {
+                return e;
+            }
+        }
+        return null;
+    }
+    public static ERole findById(long id) {
+        for (ERole e : values()) {
+            if (e.getId() == id){
                 return e;
             }
         }
