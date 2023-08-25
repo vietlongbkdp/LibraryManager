@@ -3,7 +3,7 @@ package Enum;
 import lombok.Getter;
 @Getter
 public enum ERole {
-    CLIENT("Người đọc",1),
+    CLIENT("Đọc giả",1),
     ADMIN("Quản trị viên",2);
 
     private String name;

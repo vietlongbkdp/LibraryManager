@@ -5,8 +5,8 @@ import lombok.Getter;
 @Getter
 
 public enum EGender {
-    FEMALE("Nữ", 1),
-    MALE("Nam", 2),
+    FEMALE("Nữ", 2),
+    MALE("Nam", 1),
     OTHER("Khác", 3);
     private String name;
     private int id;

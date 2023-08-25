@@ -41,8 +41,8 @@ public class User {
     public String toString() {
         return this.getId() + "," + this.getAccount() + "," + this.getPassword()
                 + "," + this.getUserName() + "," + this.getPhone() + ","
-                + this.getAddress() + this.getDoB() + "," + this.getEmail() + "," + this.getGender().getName()
-                + "," + this.getRole().getName() + "," + "\n";
+                + this.getAddress() + "," + this.getDoB() + "," + this.getEmail() + "," + this.getGender().getName()
+                + "," + this.getRole().getName()+ "\n";
     }
 
 }
