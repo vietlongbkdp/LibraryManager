@@ -7,7 +7,7 @@ public class ValidateUntil {
     public static final String REGEX_Account = ("^[A-Za-z0-9]+$");
     public static final String REGEX_Name = ("^[A-Za-z ]+$");
     public static final String REGEX_Phone = ("^[0][1-9][0-9]{8}$");
-    public static final String REGEX_Address = ("^[A-Za-z0-9, ]{3,}$");
+    public static final String REGEX_Address = ("^[A-Za-z0-9- ]{3,}$");
     public static final String REGEX_DoB = ("^[1-2][0-9]{3}[-][0-1][0-9][-][0-3][0-9]$");
     public static final String REGEX_Email = ("^[a-zA-Z0-9_]+@[a-z]+[.][a-z]+$");
     public static final String REGEX_Gender = ("^[1-3]$");

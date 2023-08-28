@@ -4,6 +4,7 @@ import model.ManagerUser;
 import model.User;
 
 import java.time.LocalDate;
+import java.lang.*;
 import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
@@ -20,24 +21,29 @@ import static until.ValidateUntil.*;
 public class Login {
     static Scanner input = new Scanner(System.in);
     public static void launcher(){
-        System.out.println(" ================Chào mừng bạn đến với thư viện của Long Siêu cấp Vip Pro===================");
-        int indexLogin = 0;
-        do{
-            System.out.println("MENU");
-            System.out.println("1: ĐĂNG NHẬP");
-            System.out.println("2: ĐĂNG KÝ TÀI KHOẢN USER");
-            System.out.println("0: THOÁT");
-            System.out.println("Nhập lựa chọn của bạn :");
-            indexLogin = Integer.parseInt(input.nextLine());
-            if(indexLogin == 1){
-                loginUser();
-            } else if (indexLogin ==2) {
-                signinUser();
-            } else if ((indexLogin != 0)){
-                System.out.println("Bạn nhập sai rồi, mời nhập lại");
-            }
-        }while (indexLogin !=0);
-        System.out.println("THANK YOU!!");
+        try {
+            System.out.println(" ================Chào mừng bạn đến với thư viện của Long Siêu cấp Vip Pro===================");
+            int indexLogin;
+            do{
+                System.out.println("MENU");
+                System.out.println("1: ĐĂNG NHẬP");
+                System.out.println("2: ĐĂNG KÝ TÀI KHOẢN USER");
+                System.out.println("0: THOÁT");
+                System.out.println("Nhập lựa chọn của bạn :");
+                indexLogin = Integer.parseInt(input.nextLine());
+                if(indexLogin == 1){
+                    loginUser();
+                } else if (indexLogin ==2) {
+                    signinUser();
+                } else if ((indexLogin != 0)){
+                    System.out.println("Bạn nhập sai rồi, mời nhập lại");
+                }
+            }while (indexLogin !=0);
+            System.out.println("THANK YOU!!");
+        }catch (NumberFormatException numberFormatException){
+
+        }
+
     }
     public static void signinUser() {
         try {
@@ -129,7 +135,7 @@ public class Login {
                     System.err.println("Vui lòng chọn một trong 3 lựa chọn trên");
                 }
             } while (!checkGender(strInputGender));
-            int inputGenderTemp = Integer.parseInt(strInputGender);
+            long inputGenderTemp = Long.parseLong(strInputGender);
             EGender inputGender = EGender.findById(inputGenderTemp);
             String inputPassword;
             do {

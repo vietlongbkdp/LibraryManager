@@ -23,17 +23,17 @@ public enum EGender {
         this.id = value;
     }
     public static EGender findByName(String name) {
-        for (EGender e : values()) {
-            if ((e.getName().equals(name))){
-                return e;
+        for (EGender eGender : values()) {
+            if ((eGender.getName().equals(name))){
+                return eGender;
             }
         }
         return null;
     }
     public static EGender findById(long id) {
-        for (EGender e : values()) {
-            if (e.getId() == id){
-                return e;
+        for (EGender eGender : values()) {
+            if (eGender.getId() == id){
+                return eGender;
             }
         }
         return null;
