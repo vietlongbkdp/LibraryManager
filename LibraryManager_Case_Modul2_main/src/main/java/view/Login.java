@@ -6,6 +6,7 @@ import model.User;
 import java.time.LocalDate;
 import java.lang.*;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -20,31 +21,33 @@ import static until.ValidateUntil.*;
 
 public class Login {
     static Scanner input = new Scanner(System.in);
-    public static void launcher(){
+
+    public static void launcher() {
         try {
             System.out.println(" ================Chào mừng bạn đến với thư viện của Long Siêu cấp Vip Pro===================");
             int indexLogin;
-            do{
+            do {
                 System.out.println("MENU");
                 System.out.println("1: ĐĂNG NHẬP");
                 System.out.println("2: ĐĂNG KÝ TÀI KHOẢN USER");
                 System.out.println("0: THOÁT");
                 System.out.println("Nhập lựa chọn của bạn :");
                 indexLogin = Integer.parseInt(input.nextLine());
-                if(indexLogin == 1){
+                if (indexLogin == 1) {
                     loginUser();
-                } else if (indexLogin ==2) {
+                } else if (indexLogin == 2) {
                     signinUser();
-                } else if ((indexLogin != 0)){
+                } else if ((indexLogin != 0)) {
                     System.out.println("Bạn nhập sai rồi, mời nhập lại");
                 }
-            }while (indexLogin !=0);
+            } while (indexLogin != 0);
             System.out.println("THANK YOU!!");
-        }catch (NumberFormatException numberFormatException){
+        } catch (NumberFormatException numberFormatException) {
 
         }
 
     }
+
     public static void signinUser() {
         try {
             UserService us1 = new UserService();
@@ -66,85 +69,85 @@ public class Login {
                         }
                     }
                 } while (! flag);
-                if(!checkID(inputID)){
+                if (! checkID(inputID)) {
                     System.err.println("ID Clinet gồm 4 chữ số");
                 }
-            }while (!checkID(inputID));
+            } while (! checkID(inputID));
 
             String inputAccount;
             do {
                 System.out.println("NHẬP TÊN ĐĂNG NHẬP: ");
                 inputAccount = input.nextLine();
-                if(!checkAccount(inputAccount)){
+                if (! checkAccount(inputAccount)) {
                     System.err.println("Tên đăng nhập không được chấp nhận");
                 }
-            } while (!checkAccount(inputAccount));
+            } while (! checkAccount(inputAccount));
 
             String inputName;
             do {
                 System.out.println("NHẬP HỌ VÀ TÊN: ");
                 inputName = input.nextLine();
-                if(!checkName(inputName)){
+                if (! checkName(inputName)) {
                     System.err.println("Bạn đã nhập tên không đúng");
                 }
-            } while (!checkName(inputName));
+            } while (! checkName(inputName));
 
 
             String inputPhone;
             do {
                 System.out.println("NHẬP SỐ ĐIỆN THOẠI: ");
                 inputPhone = input.nextLine();
-                if(!checkPhone(inputPhone)){
+                if (! checkPhone(inputPhone)) {
                     System.err.println("Số điện thoại không tồn tại");
                 }
-            } while (!checkPhone(inputPhone));
+            } while (! checkPhone(inputPhone));
 
             String inputAddress;
             do {
                 System.out.println("NHẬP ĐỊA CHỈ: ");
                 inputAddress = input.nextLine();
-                if(!checkAddress(inputAddress)){
+                if (! checkAddress(inputAddress)) {
                     System.err.println("Địa chỉ không hợp lệ, vui lòng nhập lại");
                 }
-            } while (!checkAddress(inputAddress));
+            } while (! checkAddress(inputAddress));
 
             String strInputDoB;
             do {
                 System.out.println("NHẬP NGÀY THÁNG NĂM SINH (Theo định dạng yyyy - mm - dd): ");
-                strInputDoB =input.nextLine();
-                if(!checkDoB(strInputDoB)){
+                strInputDoB = input.nextLine();
+                if (! checkDoB(strInputDoB)) {
                     System.err.println("Vui lòng nhập ngày tháng đúng định dạng");
                 }
-            } while (!checkDoB(strInputDoB));
+            } while (! checkDoB(strInputDoB));
             LocalDate inputDoB = LocalDate.parse(strInputDoB);
 
             String inputEmail;
             do {
                 System.out.println("NHẬP EMAIL: ");
                 inputEmail = input.nextLine();
-                if(!checkEmail(inputEmail)){
+                if (! checkEmail(inputEmail)) {
                     System.err.println("Email không tồn tại");
                 }
-            } while (!checkEmail(inputEmail));
+            } while (! checkEmail(inputEmail));
 
             String strInputGender;
             do {
                 System.out.println("NHẬP GIỚI TÍNH:    1: NAM           2: NỮ         3: OTHER");
                 strInputGender = input.nextLine();
-                if(!checkGender(strInputGender)){
+                if (! checkGender(strInputGender)) {
                     System.err.println("Vui lòng chọn một trong 3 lựa chọn trên");
                 }
-            } while (!checkGender(strInputGender));
+            } while (! checkGender(strInputGender));
             long inputGenderTemp = Long.parseLong(strInputGender);
             EGender inputGender = EGender.findById(inputGenderTemp);
             String inputPassword;
             do {
                 System.out.println("NHẬP MẬT KHẨU (Mật khẩu có ít nhất 8 ký tự, bao gồm chữ cái viết hoa, viết thuờng, số và ký tự đặc biệt):");
                 inputPassword = input.nextLine();
-                if(!checkPassword(inputPassword)){
+                if (! checkPassword(inputPassword)) {
                     System.err.println("Vui long nhập mật khẩu đúng định dạng");
                 }
-            } while (!checkPassword(inputPassword));
+            } while (! checkPassword(inputPassword));
 
             String inputRePassword = "";
             do {
@@ -158,15 +161,29 @@ public class Login {
             System.err.println("Bạn phải nhập đúng định dạng");
         } catch (DateTimeParseException dateTimeParseException) {
             System.err.println("Bạn cần phải nhập ngày đúng định dạng như trên!!!");
-        }catch (NullPointerException nullPointerException){
+        } catch (NullPointerException nullPointerException) {
             System.err.println("Lỗi danh sách");
         }
     }
-    public static  void loginUser(){
-        System.out.println("=============ĐĂNG NHẬP============");
-        System.out.println("TÊN ĐĂNG NHẬP: ");
-        String inputUserName = input.nextLine();
-        System.out.println("MẬT KHẨU: ");
-        String inputPassword = input.nextLine();
+
+    public static void loginUser() {
+
+        UserService us2 = new UserService();
+        List<User> userListCheckLogin = us2.getAllUser();
+        boolean flag = false;
+        do {
+            System.out.println("=============ĐĂNG NHẬP============");
+            System.out.println("TÊN ĐĂNG NHẬP: ");
+            String inputUserName = input.nextLine();
+            System.out.println("MẬT KHẨU: ");
+            String inputPassword = input.nextLine();
+            User user = userListCheckLogin.stream().filter(u->u.getUserName().equals(inputUserName)).findFirst().orElse(null);
+            if(user.getPassword().equals(inputPassword)){
+                System.out.println("ĐĂNG NHẬP THÀNH CÔNG");
+                flag = true;
+            }
+        } while (!flag) ;
+            System.out.println("Hello");
+
     }
 }
