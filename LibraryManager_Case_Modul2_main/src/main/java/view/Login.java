@@ -10,12 +10,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 import Enum.EGender;
 import Enum.ERole;
 import service.UserService;
 
 import  until.ValidateUntil;
+
+import javax.jws.soap.SOAPBinding;
 
 import static until.ValidateUntil.*;
 
@@ -167,21 +170,24 @@ public class Login {
     }
 
     public static void loginUser() {
-
         UserService us2 = new UserService();
         List<User> userListCheckLogin = us2.getAllUser();
         boolean flag = false;
         do {
             System.out.println("=============ĐĂNG NHẬP============");
             System.out.println("TÊN ĐĂNG NHẬP: ");
-            String inputUserName = input.nextLine();
+            String inputAccount = input.nextLine();
             System.out.println("MẬT KHẨU: ");
             String inputPassword = input.nextLine();
-            User user = userListCheckLogin.stream().filter(u->u.getUserName().equals(inputUserName)).findFirst().orElse(null);
-            if(user.getPassword().equals(inputPassword)){
-                System.out.println("ĐĂNG NHẬP THÀNH CÔNG");
+            User userLogin = userListCheckLogin.stream().filter(s ->s.getAccount().equals(inputAccount)).findFirst().orElse(null);
+            if(userLogin!=null && userLogin.getPassword().equals(inputPassword) && userLogin.getRole().getName().equals("Đọc giả")){
+                UserView user = new UserView(userLogin);
+
                 flag = true;
-            }
+            }else if (userLogin!=null && userLogin.getPassword().equals(inputPassword) && userLogin.getRole().getName().equals("Quản trị viên")) {
+                AdminView admin = new AdminView(userLogin);
+                flag = true;
+            }else System.out.println("Tên đăng nhập hoặc mật khẩu không đúng, vui lòng đăng nhập lại!");
         } while (!flag) ;
             System.out.println("Hello");
 
