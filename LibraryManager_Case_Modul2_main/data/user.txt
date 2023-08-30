@@ -2,3 +2,4 @@
 2121,Long123,Sisi1212@!,Nguyen Viet,0982645182,Viet Nam,1998-04-14,sisi@gmail.com,Nữ,Đọc giả
 1212,longdepchai123,Matkhau123@@,Nguyen Van A,0987654321,Viet Nam,1999-09-12,bietnoi@gmail.com,Nam,Đọc giả
 1235,long1234,Long1234@@,Nguyen Viet Long,0987766421,HUE,1997-05-31,vietlong@gmail.com,Nam,Quản trị viên
+1231,nguyen,Qwert1234!!,nguyen van b,0987654321,hue,2012-11-23,veir@gmail.com,Khác,Đọc giả

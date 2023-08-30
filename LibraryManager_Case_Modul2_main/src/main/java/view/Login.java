@@ -182,7 +182,7 @@ public class Login {
             User userLogin = userListCheckLogin.stream().filter(s ->s.getAccount().equals(inputAccount)).findFirst().orElse(null);
             if(userLogin!=null && userLogin.getPassword().equals(inputPassword) && userLogin.getRole().getName().equals("Đọc giả")){
                 UserView user = new UserView(userLogin);
-
+                user.showSelection();
                 flag = true;
             }else if (userLogin!=null && userLogin.getPassword().equals(inputPassword) && userLogin.getRole().getName().equals("Quản trị viên")) {
                 AdminView admin = new AdminView(userLogin);
