@@ -20,27 +20,27 @@ public class LibraryCard extends User{
     private String code;
     private ETypeCard typeCard;
     private LocalDate createDate;
-    private LocalDate expiredDate;
-    private EPrice price;
+    private EPeriod period;
+    LibraryCardService libraryCardService = new LibraryCardService();
 
-
-    public LibraryCard(User user, long idCard, String code, ETypeCard typeCard, LocalDate createDate, LocalDate expiredDate, EPrice price) {
+    public LibraryCard(long idCard, String code, ETypeCard typeCard, LocalDate createDate, EPeriod period) {
         this.id = user.getId();
         this.account = user.getAccount();
         this.password = user.getPassword();
         this.userName = user.getUserName();
         this.phone = user.getPhone();
-        this.address = user.getAddress();
+        this.address = user.getAddress(
         this.doB = user.getDoB();
         this.email = user.getEmail();
-        this.gender = user.getGender();
+        this.gender = user.getGender();zzzzzzzzz
         this.role = user.getRole();
+        this.hasCard = user.isHasCard();
+        super(id, account,password,userName, phone, address, doB)
         this.idCard = idCard;
         this.code = code;
         this.typeCard = typeCard;
         this.createDate = createDate;
-        this.expiredDate = expiredDate;
-        this.price = price;
+        this.period = period;
     }
 
     //    public LibraryCard(long id, String account, String password, String userName, String phone, String address, LocalDate doB, String email, EGender gender, ERole role, long idCard, String code, ETypeCard typeCard, LocalDate createDate, LocalDate expiredDate, EPrice price) {
@@ -52,13 +52,16 @@ public class LibraryCard extends User{
 //        this.expiredDate = expiredDate;
 //        this.price = price;
 //    }
-    public LibraryCard(long idCard, String code, ETypeCard typeCard, LocalDate createDate, LocalDate expiredDate, EPrice price){
+    public LibraryCard(long idCard, String code, ETypeCard typeCard, LocalDate createDate, EPeriod period){
         this.idCard = idCard;
         this.code = code;
         this.typeCard = typeCard;
         this.createDate = createDate;
-        this.expiredDate = expiredDate;
-        this.price = price;
+        this.period = period;
+    }
+
+    public String toString() {
+        return idCard + "," + code + "," + typeCard + "," + createDate + "," + period +"\n" ;
     }
 
     public void showLibraryCard(){
@@ -72,7 +75,6 @@ public class LibraryCard extends User{
         System.out.println("             | |  Ngày sinh : " + this.getDoB());
         System.out.println("             | |  Hạng thẻ : " + this.getTypeCard());
         System.out.println("             | |  Ngày đăng ký : " + this.getCreateDate());
-        System.out.println("             | |  Ngày hết hạn : " + this.getExpiredDate());
         System.out.println("             ======================================================");
     }
     public void selectLibraryCard(){
@@ -87,6 +89,7 @@ public class LibraryCard extends User{
             index = Integer.parseInt(input.nextLine());
             if(index == 1){
 
+                libraryCardService.createCard(this.id);
             } else if (index == 2) {
                 System.out.println("KIỂM TRA THÔNG TIN THẺ");
             }else if (index ==3){

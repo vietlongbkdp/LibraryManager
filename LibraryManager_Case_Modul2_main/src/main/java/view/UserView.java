@@ -35,7 +35,7 @@ public UserView(User user){
             } else if (index == 2) {
                 System.out.println("hello 2");
             } else if (index == 3) {
-                System.out.println(3);
+                System.out.println("3");
             }else if(index!=0){
                 System.out.println("Giá trị bạn nhập không đúng!!");
             }

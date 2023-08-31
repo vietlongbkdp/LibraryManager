@@ -19,9 +19,9 @@ public enum ETypeCard {
         this.id = value;
     }
 
-    public static ETypeCard findByname(String name) {
+    public static ETypeCard findById(int id) {
         for (ETypeCard e : values()) {
-            if ((e.getName().equals(name))) {
+            if (e.getId() == id) {
                 return e;
             }
         }

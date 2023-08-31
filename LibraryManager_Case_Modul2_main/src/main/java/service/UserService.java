@@ -60,6 +60,7 @@ public class UserService implements IUserService {
                     u.setEmail(userNew.getEmail());
                     u.setGender(userNew.getGender());
                     u.setRole(ERole.CLIENT);
+                    u.setHasCard(userNew.isHasCard());
                 }
             }
         }
@@ -88,7 +89,7 @@ public class UserService implements IUserService {
                 String[] strDataUser = strLine.split(",");
                 User user = new User(Long.parseLong(strDataUser[0]), strDataUser[1],
                         strDataUser[2], strDataUser[3], strDataUser[4], strDataUser[5], LocalDate.parse(strDataUser[6]), strDataUser[7],
-                        EGender.findByName(strDataUser[8]), ERole.findByName(strDataUser[9]));
+                        EGender.findByName(strDataUser[8]), ERole.findByName(strDataUser[9]), Boolean.parseBoolean(strDataUser[10]));
                 userList.add(user);
             }
             bufferedReader.close();

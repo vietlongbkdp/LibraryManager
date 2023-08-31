@@ -157,7 +157,7 @@ public class Login {
                 System.out.println("NHẬP LẠI MẬT KHẨU");
                 inputRePassword = input.nextLine();
             } while (! inputPassword.equals(inputRePassword));
-            User user = new User(inputID, inputAccount, inputPassword, inputName, inputPhone, inputAddress, inputDoB, inputEmail, inputGender, ERole.CLIENT);
+            User user = new User(inputID, inputAccount, inputPassword, inputName, inputPhone, inputAddress, inputDoB, inputEmail, inputGender, ERole.CLIENT, false);
             us1.addUser(user);
             System.out.println("TẠO TÀI KHOẢN THÀNH CÔNG!!!");
         } catch (NumberFormatException numberFormatException) {

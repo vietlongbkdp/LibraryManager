@@ -23,8 +23,9 @@ public class User {
     protected String email;
     protected EGender gender;
     protected ERole role;
+    protected boolean hasCard;
 
-    public User(long id, String account, String password, String userName, String phone, String address, LocalDate doB, String email, EGender gender, ERole role) {
+    public User(long id, String account, String password, String userName, String phone, String address, LocalDate doB, String email, EGender gender, ERole role, boolean hasCard) {
         this.id = id;
         this.account = account;
         this.password = password;
@@ -35,6 +36,7 @@ public class User {
         this.email = email;
         this.gender = gender;
         this.role = role;
+        this.hasCard = hasCard;
     }
 
     @Override
@@ -42,7 +44,7 @@ public class User {
         return this.getId() + "," + this.getAccount() + "," + this.getPassword()
                 + "," + this.getUserName() + "," + this.getPhone() + ","
                 + this.getAddress() + "," + this.getDoB() + "," + this.getEmail() + "," + this.getGender().getName()
-                + "," + this.getRole().getName()+ "\n";
+                + "," + this.getRole().getName()+ ","+this.isHasCard()+"\n";
     }
 
 }
