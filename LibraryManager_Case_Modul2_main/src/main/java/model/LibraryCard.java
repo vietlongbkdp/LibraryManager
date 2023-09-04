@@ -29,13 +29,12 @@ public class LibraryCard extends User{
         this.password = user.getPassword();
         this.userName = user.getUserName();
         this.phone = user.getPhone();
-        this.address = user.getAddress(
+        this.address = user.getAddress();
         this.doB = user.getDoB();
         this.email = user.getEmail();
-        this.gender = user.getGender();zzzzzzzzz
+        this.gender = user.getGender();
         this.role = user.getRole();
         this.hasCard = user.isHasCard();
-        super(id, account,password,userName, phone, address, doB)
         this.idCard = idCard;
         this.code = code;
         this.typeCard = typeCard;
@@ -52,13 +51,13 @@ public class LibraryCard extends User{
 //        this.expiredDate = expiredDate;
 //        this.price = price;
 //    }
-    public LibraryCard(long idCard, String code, ETypeCard typeCard, LocalDate createDate, EPeriod period){
-        this.idCard = idCard;
-        this.code = code;
-        this.typeCard = typeCard;
-        this.createDate = createDate;
-        this.period = period;
-    }
+//    public LibraryCard(long idCard, String code, ETypeCard typeCard, LocalDate createDate, EPeriod period){
+//        this.idCard = idCard;
+//        this.code = code;
+//        this.typeCard = typeCard;
+//        this.createDate = createDate;
+//        this.period = period;
+//    }
 
     public String toString() {
         return idCard + "," + code + "," + typeCard + "," + createDate + "," + period +"\n" ;
