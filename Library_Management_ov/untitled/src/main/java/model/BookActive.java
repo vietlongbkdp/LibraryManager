@@ -20,6 +20,6 @@ public class BookActive {
 
     @Override
     public String toString() {
-        return id +","+ bookID +","+ quantity +","+ borrowDate +","+ returnDate +","+ status;
+        return id +","+ bookID +","+ quantity +","+ borrowDate +","+ returnDate +","+ status +"\n";
     }
 }
