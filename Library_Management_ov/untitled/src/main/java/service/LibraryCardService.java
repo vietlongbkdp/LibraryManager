@@ -1,7 +1,6 @@
 package service;
 import Utils.FileUtils;
 import model.LibraryCard;
-import model.User;
 
 import java.io.*;
 import java.time.LocalDate;
@@ -78,8 +77,7 @@ public class LibraryCardService{
             }
             bufferedReader.close();
             fileReader.close();
-        } catch (IOException e) {
-            System.err.println("LỖI TRONG QUÁ TRÌNH ĐỌC DỮ LIỆU");
+        } catch (IOException ignored) {
         }
         return list;
     }

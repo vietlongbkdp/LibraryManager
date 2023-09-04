@@ -13,7 +13,7 @@ public class StartView {
         System.out.println(" ║                                                      ║");
         System.out.println(" ║                    1. ĐĂNG NHẬP                      ║");
         System.out.println(" ║                    2. ĐĂNG KÍ THÀNH VIÊN             ║");
-        System.out.println(" ║                    0. THOÁT RA                       ║");
+        System.out.println(" ║                    0. THOÁT CHƯƠNG TRÌNH             ║");
         System.out.println(" ║                                                      ║");
         System.out.println(" ╚══════════════════════════════════════════════════════╝");
     }

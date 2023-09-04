@@ -7,79 +7,18 @@ import service.BookService;
 import service.UserService;
 
 import java.time.LocalDate;
-import java.util.List;
 import Enum.*;
 
 public class RegisterView {
-    public static void registerNewClient(){
+    public static void registerNewClient() {
+        User user = registerNewUser();
         UserService userService = new UserService();
-        long id = 0;
-        boolean flag = false;
-        do {
-            try {
-                flag = false;
-                id = Long.parseLong(AppUtils.typing("Nhập ID: "));
-            }catch (NumberFormatException numberFormatException){
-                System.err.println("Bạn cần nhập số!");
-            }catch (NullPointerException nullPointerException){
-                System.err.println("Dữ liệu trống, vui lòng kiểm tra!!");
-            }catch (IllegalArgumentException illegalArgumentException){};
-        if(!ValidateUntil.checkID(id)) System.err.println("ID phải gồm 4 chữ số");
-        if (userService.checkExist(id)){
-                    System.err.println("Mời nhập lại!!");
-            }else flag = true;
-        }while (!ValidateUntil.checkID(id) || !flag);
-
-        String account;
-        do {
-        account = AppUtils.typing("Nhập tên đăng nhập: ");
-        }while (!ValidateUntil.checkAccount(account));
-
-        String name;
-        do {
-        name = AppUtils.typing("Nhập họ và tên");
-        }while (!ValidateUntil.checkName(name));
-
-        String phone;
-        do {
-        phone = AppUtils.typing("Nhập số điện thoại: ");
-        }while (!ValidateUntil.checkPhone(phone));
-
-        String address;
-        do {
-        address = AppUtils.typing("Nhập địa chỉ: ");
-        }while (!ValidateUntil.checkAddress(address));
-
-        String strDoB;
-        do {
-        strDoB = AppUtils.typing("Nhập ngày sinh (Theo định dạng YY-MM-DD) : ");
-        }while (!ValidateUntil.checkDoB(strDoB));
-        LocalDate doD = LocalDate.parse(strDoB);
-
-        String email;
-        do {
-        email = AppUtils.typing("Nhập Email");
-        }while (!ValidateUntil.checkEmail(email));
-
-        String strGender;
-        do {
-        strGender = AppUtils.typing("Vui lòng chọn giới tính :    1: Nam      2: Nữ     3: Khác");
-        }while (!ValidateUntil.checkGender(strGender));
-        int inputGender = Integer.parseInt(strGender);
-        EGender gender = EGender.findById(inputGender);
-
-        String password;
-        String rePassword;
-        do {
-        password = AppUtils.typing("Tạo mật khẩu : ");
-        rePassword = AppUtils.typing("Xác nhận lại mật khẩu: ");
-        }while (!ValidateUntil.checkPassword(password) && !password.equals(rePassword));
-        User newUser = new User(id, account, password, name, phone, address, doD, email, gender, ERole.CLIENT, false);
-        userService.addElement(newUser);
+        userService.addElement(user);
         StartView.start();
     }
-    public static Book registerNewBook() {
-        BookService bookService = new BookService();
+
+    public static User registerNewUser() {
+        UserService userService = new UserService();
         long id = 0;
         boolean flag = false;
         do {
@@ -90,7 +29,74 @@ public class RegisterView {
                 System.err.println("Bạn cần nhập số!");
             } catch (NullPointerException nullPointerException) {
                 System.err.println("Dữ liệu trống, vui lòng kiểm tra!!");
-            } catch (IllegalArgumentException illegalArgumentException) {
+            } catch (IllegalArgumentException ignored) {
+            }
+            ;
+            if (!ValidateUntil.checkID(id)) System.err.println("ID phải gồm 4 chữ số");
+            if (userService.checkExist(id)) {
+                System.err.println("Mời nhập lại!!");
+            } else flag = true;
+        } while (!ValidateUntil.checkID(id) || !flag);
+
+        String account;
+        do {
+            account = AppUtils.typing("Nhập tên đăng nhập: ");
+        } while (!ValidateUntil.checkAccount(account));
+
+        String name;
+        do {
+            name = AppUtils.typing("Nhập họ và tên");
+        } while (!ValidateUntil.checkName(name));
+
+        String phone;
+        do {
+            phone = AppUtils.typing("Nhập số điện thoại: ");
+        } while (!ValidateUntil.checkPhone(phone));
+
+        String address;
+        do {
+            address = AppUtils.typing("Nhập địa chỉ: ");
+        } while (!ValidateUntil.checkAddress(address));
+
+        String strDoB;
+        do {
+            strDoB = AppUtils.typing("Nhập ngày sinh (Theo định dạng YY-MM-DD) : ");
+        } while (!ValidateUntil.checkDoB(strDoB));
+        LocalDate doD = LocalDate.parse(strDoB);
+
+        String email;
+        do {
+            email = AppUtils.typing("Nhập Email");
+        } while (!ValidateUntil.checkEmail(email));
+
+        String strGender;
+        do {
+            strGender = AppUtils.typing("Vui lòng chọn giới tính :    1: Nam      2: Nữ     3: Khác");
+        } while (!ValidateUntil.checkGender(strGender));
+        int inputGender = Integer.parseInt(strGender);
+        EGender gender = EGender.findById(inputGender);
+
+        String password;
+        String rePassword;
+        do {
+            password = AppUtils.typing("Tạo mật khẩu : ");
+            rePassword = AppUtils.typing("Xác nhận lại mật khẩu: ");
+        } while (!ValidateUntil.checkPassword(password) && !password.equals(rePassword));
+        return new User(id, account, password, name, phone, address, doD, email, gender, ERole.CLIENT, false);
+    }
+    public static Book registerNewBook() {
+        BookService bookService = new BookService();
+        long id = 0;
+        boolean flag = false;
+        do {
+            try {
+                flag = false;
+                id = Long.parseLong(AppUtils.typing("Nhập ID sách: "));
+            } catch (NumberFormatException numberFormatException) {
+                System.err.println("Bạn cần nhập số!");
+            } catch (NullPointerException nullPointerException) {
+                System.err.println("Dữ liệu trống, vui lòng kiểm tra!!");
+            } catch (IllegalArgumentException ignored) {
             }
             ;
             if (! ValidateUntil.checkID(id)) System.err.println("ID phải gồm 4 chữ số");
@@ -131,12 +137,11 @@ public class RegisterView {
         do {
             strPrice = AppUtils.typing("Nhập giá trị cuốn sách : ");
         } while (! ValidateUntil.checkPrice(strPrice));
-        Double price = Double.parseDouble(strPrice);
+        double price = Double.parseDouble(strPrice);
 
         String description = AppUtils.typing("Nhập mô tả: ");
 
-        Book newBook = new Book(id, bookName, author, publisher, false, shelf, typeBook, price, description, LocalDate.now());
-        return newBook;
+        return new Book(id, bookName, author, publisher, true, shelf, typeBook, price, description, LocalDate.now());
     }
 
 }

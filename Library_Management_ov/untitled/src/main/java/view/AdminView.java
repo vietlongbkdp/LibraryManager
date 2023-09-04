@@ -10,22 +10,26 @@ public class AdminView {
         System.out.println("1: Quản lý sách");
         System.out.println("2: Quản lý User");
         System.out.println("3: Quản lý Danh mục mượn/trả");
-        System.out.println("0: Quay lại");
+        System.out.println("0: Đăng xuất");
     }
     public static void adminSelect(User user){
         adminShow(user);
-        int select = 0;
+        int select = 1000;
         do {
-            select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
+            try{
+                select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
+            }catch (Exception exception){
+                System.err.println("Vui lòng nhập số");
+            }
             if(select == 1){
-                BookView.bookSelect();
+                BookView.bookSelect(user);
             }else if (select ==2){
-                System.out.println("Hello 2");
+                UserView.userSelect(user);
             }else if (select == 0){
-//                LoginView.loginUser(user);
+                StartView.start();
             }else if(select == 3){
-
-            }else if(select!=0) System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
+                //                LoginView.loginUser(user);
+            }else System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
         }while (select!=0);
     }
 }

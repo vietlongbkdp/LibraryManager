@@ -8,7 +8,6 @@ import service.BookService;
 import java.util.List;
 
 public class BookView {
-    public static List<Book> bookList;
     public static void bookShow(){
         System.out.println();
         System.out.println("                        CHÀO MỪNG ADMIN                       ");
@@ -20,35 +19,39 @@ public class BookView {
         System.out.println(" ║                    3. CHỈNH SỬA THÔNG TIN SÁCH            ║");
         System.out.println(" ║                    4. XOÁ SÁCH KHỎI THƯ VIỆN              ║");
         System.out.println(" ║                    5. HIỂN THỊ TẤT CẢ SÁCH                ║");
-        System.out.println(" ║                    0. THOÁT RA                            ║");
+        System.out.println(" ║                    0. QUAY LẠI                            ║");
         System.out.println(" ║                                                           ║");
         System.out.println(" ╚═══════════════════════════════════════════════════════════╝");
     }
-    public static void bookSelect(){
+    public static void bookSelect(User user){
             bookShow();
             int select = 0;
             do {
                 select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
                 if(select == 1){
-
+                    BookService bookService = new BookService();
+                    bookService.findBook(user);
                 }else if (select ==2){
                     BookService bookService = new BookService();
                     bookService.addElement(RegisterView.registerNewBook());
                     bookService.showData();
                 }else if (select ==3){
-
+                    System.out.println("HIHI ĐOẠN NI TƯƠNG TỰ TÌM KIẾM EM TẠM BỎ QUA");
                 }else if (select ==4){
-                    System.out.println("Hello 4");
+                    BookService bookService = new BookService();
+                    bookService.showData();
+                    long id = Long.parseLong(AppUtils.typing("Nhập Id sách bạn muốn xoá"));
+                    String isSure = AppUtils.typing("Bạn có chắc chắn muốn xoá không ? (Y/N)");
+                    if((isSure.equals("Y"))||isSure.equals("y")){
+                        bookService.deleteById(id);
+                        bookService.showData();
+                    }else bookSelect(user);
                 }else if (select ==5){
                     BookService bookService = new BookService();
                     bookService.showData();
                 }else if (select == 0){
-                    System.exit(1);
-                }else if(select!=0) System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
+                    AdminView.adminSelect(user);
+                }else System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
             }while (select!=0);
     }
-//    public static Book newBook(){
-//
-//        return book;
-//    }
 }
