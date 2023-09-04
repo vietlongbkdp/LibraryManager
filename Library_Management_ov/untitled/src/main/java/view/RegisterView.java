@@ -1,6 +1,7 @@
 package view;
 import Utils.AppUtils;
 import Utils.ValidateUntil;
+import model.Book;
 import model.User;
 import service.BookService;
 import service.UserService;
@@ -77,7 +78,7 @@ public class RegisterView {
         userService.addElement(newUser);
         StartView.start();
     }
-    public static void registerNewBook(){
+    public static Book registerNewBook() {
         BookService bookService = new BookService();
         long id = 0;
         boolean flag = false;
@@ -85,63 +86,57 @@ public class RegisterView {
             try {
                 flag = false;
                 id = Long.parseLong(AppUtils.typing("Nhập ID: "));
-            }catch (NumberFormatException numberFormatException){
+            } catch (NumberFormatException numberFormatException) {
                 System.err.println("Bạn cần nhập số!");
-            }catch (NullPointerException nullPointerException){
+            } catch (NullPointerException nullPointerException) {
                 System.err.println("Dữ liệu trống, vui lòng kiểm tra!!");
-            }catch (IllegalArgumentException illegalArgumentException){};
-            if(!ValidateUntil.checkID(id)) System.err.println("ID phải gồm 4 chữ số");
-            if (bookService.checkExist(id)){
+            } catch (IllegalArgumentException illegalArgumentException) {
+            }
+            ;
+            if (! ValidateUntil.checkID(id)) System.err.println("ID phải gồm 4 chữ số");
+            if (bookService.checkExist(id)) {
                 System.err.println("Mời nhập lại!!");
-            }else flag = true;
-        }while (!ValidateUntil.checkID(id) || !flag);
+            } else flag = true;
+        } while (! ValidateUntil.checkID(id) || ! flag);
 
-        String account;
+        String bookName;
         do {
-            account = AppUtils.typing("Nhập tên đăng nhập: ");
-        }while (!ValidateUntil.checkAccount(account));
+            bookName = AppUtils.typing("Nhập tên sách: ");
+        } while (! ValidateUntil.checkBookName(bookName));
 
-        String name;
+        String author;
         do {
-            name = AppUtils.typing("Nhập họ và tên");
-        }while (!ValidateUntil.checkName(name));
+            author = AppUtils.typing("Nhập họ và tên tác giả: ");
+        } while (! ValidateUntil.checkAuthor(author));
 
-        String phone;
+        String publisher;
         do {
-            phone = AppUtils.typing("Nhập số điện thoại: ");
-        }while (!ValidateUntil.checkPhone(phone));
+            publisher = AppUtils.typing("Nhập tên nhà xuất bản: ");
+        } while (! ValidateUntil.checkName(publisher));
 
-        String address;
+        String strShefl;
         do {
-            address = AppUtils.typing("Nhập địa chỉ: ");
-        }while (!ValidateUntil.checkAddress(address));
+            strShefl = AppUtils.typing("Bạn muốn xếp lên kệ nào (A - G): ");
+        } while (! ValidateUntil.checkShelf(strShefl));
+        EShelf shelf = EShelf.findByname(strShefl);
 
-        String strDoB;
+        String strTypeBook;
         do {
-            strDoB = AppUtils.typing("Nhập ngày sinh (Theo định dạng YY-MM-DD) : ");
-        }while (!ValidateUntil.checkDoB(strDoB));
-        LocalDate doD = LocalDate.parse(strDoB);
+            strTypeBook = AppUtils.typing("Chọn thể loại : 1: Tiểu thuyết   2: Truyện ngắn   3: Kiến thức khoa học   4: Sức khoẻ và thể thao ");
+        } while (! ValidateUntil.checkTypeBook(strTypeBook));
+        int inputTypeBook = Integer.parseInt(strTypeBook);
+        ETypeBook typeBook = ETypeBook.findByID(inputTypeBook);
 
-        String email;
+        String strPrice;
         do {
-            email = AppUtils.typing("Nhập Email");
-        }while (!ValidateUntil.checkEmail(email));
+            strPrice = AppUtils.typing("Nhập giá trị cuốn sách : ");
+        } while (! ValidateUntil.checkPrice(strPrice));
+        Double price = Double.parseDouble(strPrice);
 
-        String strGender;
-        do {
-            strGender = AppUtils.typing("Vui lòng chọn giới tính :    1: Nam      2: Nữ     3: Khác");
-        }while (!ValidateUntil.checkGender(strGender));
-        int inputGender = Integer.parseInt(strGender);
-        EGender gender = EGender.findById(inputGender);
+        String description = AppUtils.typing("Nhập mô tả: ");
 
-        String password;
-        String rePassword;
-        do {
-            password = AppUtils.typing("Tạo mật khẩu : ");
-            rePassword = AppUtils.typing("Xác nhận lại mật khẩu: ");
-        }while (!ValidateUntil.checkPassword(password) && !password.equals(rePassword));
-        User newUser = new User(id, account, password, name, phone, address, doD, email, gender, ERole.CLIENT, false);
-        userService.addElement(newUser);
-        StartView.start();
+        Book newBook = new Book(id, bookName, author, publisher, false, shelf, typeBook, price, description, LocalDate.now());
+        return newBook;
+    }
 
 }

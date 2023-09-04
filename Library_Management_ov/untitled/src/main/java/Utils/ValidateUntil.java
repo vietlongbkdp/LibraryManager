@@ -4,8 +4,11 @@ import java.util.regex.Pattern;
 
 public class ValidateUntil {
     public static final String REGEX_ID = ("^[0-9]{4}$");
+    public static final String REGEX_Price = ("^[0-9]{0,10}$");
+    public static final String REGEX_TypeBook = ("^[1-4]{1}$");
     public static final String REGEX_Account = ("^[A-Za-z0-9]+$");
     public static final String REGEX_Name = ("^[A-Za-z ]+$");
+    public static final String REGEX_Shelf = ("^[A-G]+$");
     public static final String REGEX_Author = ("^[A-Za-z ]+$");
     public static final String REGEX_BookName = ("^[A-Za-z0-9 ]+$");
     public static final String REGEX_Phone = ("^[0][1-9][0-9]{8}$");
@@ -23,6 +26,15 @@ public class ValidateUntil {
     }
     public static boolean checkAccount(String account){
         return Pattern.matches(REGEX_Account, account);
+    }
+    public static boolean checkPrice(String price){
+        return Pattern.matches(REGEX_Price, price);
+    }
+    public static boolean checkTypeBook(String typebook){
+        return Pattern.matches(REGEX_TypeBook, typebook);
+    }
+    public static boolean checkShelf(String shelf){
+        return Pattern.matches(REGEX_Shelf, shelf);
     }
     public static boolean checkName(String Name){
         return Pattern.matches(REGEX_Name, Name);

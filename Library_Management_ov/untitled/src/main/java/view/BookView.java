@@ -32,10 +32,11 @@ public class BookView {
                 if(select == 1){
 
                 }else if (select ==2){
-                    System.out.println("Hello 2");
-                }else if (select ==3){
                     BookService bookService = new BookService();
-                    bookService.addElement();
+                    bookService.addElement(RegisterView.registerNewBook());
+                    bookService.showData();
+                }else if (select ==3){
+
                 }else if (select ==4){
                     System.out.println("Hello 4");
                 }else if (select ==5){
@@ -46,8 +47,8 @@ public class BookView {
                 }else if(select!=0) System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
             }while (select!=0);
     }
-    public static Book newBook(){
-
-        return book;
-    }
+//    public static Book newBook(){
+//
+//        return book;
+//    }
 }

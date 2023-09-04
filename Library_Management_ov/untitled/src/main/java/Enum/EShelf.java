@@ -3,13 +3,13 @@ package Enum;
 import lombok.Getter;
 @Getter
 public enum EShelf {
-    A("Kệ A",1),
-    B("Kệ B",2),
-    C("Kệ C",3),
-    D("Kệ D",4),
-    E("Kệ E",5),
-    F("Kệ F",6),
-    G("Kệ G",7);
+    A("A",1),
+    B("B",2),
+    C("C",3),
+    D("D",4),
+    E("E",5),
+    F("F",6),
+    G("G",7);
 
     private String name;
     private int id;

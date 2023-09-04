@@ -5,6 +5,9 @@ import model.User;
 import service.UserService;
 import Enum.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LoginView {
     public static void loginSystem(){
         User user;
@@ -14,15 +17,25 @@ public class LoginView {
         user = UserService.readData().stream().filter(s->s.getAccount().equals(account)&&s.getPassword().equals(password)).findFirst().orElse(null);
         }while (user == null);
         if(user.getRole().getName().equals("Đọc giả")){
-            loginUser(user);
-        }else loginAdmin(user);
+            loginUser(user.getId());
+        }else loginAdmin(user.getId());
     }
-    public static void loginUser(User user){
-        ClientView.clientSelect(user);
-}
-    public static void loginAdmin(User user){
-        AdminView.adminSelect(user);
-        System.out.println("Hello Admin");
+    public static void loginUser(long id) {
+        List<User> userList = UserService.readData();
+        User user = userList.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
+        if (user != null) {
+            ClientView.clientSelect(user);
+        }
     }
 
-}
+    public static void loginAdmin(long id){
+            List<User> userList = UserService.readData();
+            User user = userList.stream().filter(s-> s.getId() == id).findFirst().orElse(null);
+            if(user!=null){
+                AdminView.adminSelect(user);
+                System.out.println("Hello Admin");
+            }
+        }
+
+    }
+

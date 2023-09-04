@@ -21,21 +21,25 @@ public class LibraryCardView {
         System.out.println("3: Huỷ thẻ");
         System.out.println("0: Quay lại");
     }
-    public static void libraryCardSelect(User user){
+    public static void libraryCardSelect(long id){
+        List<User> userList = UserService.readData();
+        User newUser = userList.stream().filter(s->s.getId() == id).findFirst().orElse(null);
+        if(newUser!=null){
         libraryCardShowSelection();
         int select = 0;
         do {
             select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
             if(select == 1){
-                chekRegisterNewLibraryCard(user);
+                chekRegisterNewLibraryCard(newUser);
             }else if (select ==2) {
-                showLibraryCard(user);
+                showLibraryCard(newUser);
             }else if(select == 3) {
-                removeLibraryCard(user);
+                removeLibraryCard(newUser);
             }else if (select == 0){
-                LoginView.loginUser(user);
+                LoginView.loginUser(newUser.getId());
             }else if(select!=0) System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
         }while (select!=0);
+    }
     }
     public static void chekRegisterNewLibraryCard(User user){
         if(user.isHasCard()){
@@ -45,14 +49,11 @@ public class LibraryCardView {
 //            user.setHasCard(true);
 //            UserService userService = new UserService();
 //            userService.updateById(user.getId(), user);
-
-
-
             List<User> userList = UserService.readData();
             userList.stream().filter(s->s.getId() == user.getId()).findFirst().orElse(null).setHasCard(true);
             FileUtils.writeData(userList, "./data/user.txt");
             System.out.println("Tạo thẻ thư viện thành công, vui lòng đăng nhập lại!!");
-            System.exit(1);
+            libraryCardSelect(user.getId());
         }
     }
     public static void registerNewLibraryCard(long idUserTrans){
@@ -130,15 +131,16 @@ public class LibraryCardView {
             System.out.println("Bạn chưa có thẻ thư viện, không cần phải xoá đâu!");
         } else {
             String isSure = AppUtils.typing("Bạn có chắc chắn muốn xoá thẻ thư viện chứ ? (Y/N)");
-            if (isSure.equals("Y")) {
+            if (isSure.equals("Y")||isSure.equals("y")) {
                 List<LibraryCard> cardList = LibraryCardService.readData();
                 cardList.remove(cardList.stream().filter(s -> s.getIdUser() == user.getId()).findFirst().orElse(null));
                 FileUtils.writeData(cardList, "./data/libraryCard.txt");
                 List<User> userList = UserService.readData();
                 userList.stream().filter(s -> s.getId() == user.getId()).findFirst().orElse(null).setHasCard(false);
                 FileUtils.writeData(userList, "./data/user.txt");
-                System.out.println("Xoá thẻ thành công, vui lòng đăng nhập lại!!");
-                System.exit(1);
+
+//                System.out.println("Xoá thẻ thành công, vui lòng đăng nhập lại!!");
+                libraryCardSelect(user.getId());
             }else System.out.println("Bạn đã đổi ý, không xoá nữa");
         }
     }

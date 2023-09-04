@@ -40,8 +40,8 @@ public class BookService {
             while ((strLine = bufferedReader.readLine()) != null) {
                 String[] strDataBook = strLine.split(",");
                 Book book = new Book(Long.parseLong(strDataBook[0]), strDataBook[1],
-                        strDataBook[2], strDataBook[3], LocalDate.parse(strDataBook[4]), Boolean.parseBoolean(strDataBook[5]), EShelf.findByname(strDataBook[6]), Integer.parseInt(strDataBook[7]), ETypeBook.findByname(strDataBook[8]),
-                        Double.parseDouble(strDataBook[9]), strDataBook[10], LocalDate.parse(strDataBook[11]));
+                        strDataBook[2], strDataBook[3], Boolean.parseBoolean(strDataBook[4]), EShelf.findByname(strDataBook[5]), ETypeBook.findByname(strDataBook[6]),
+                        Double.parseDouble(strDataBook[7]), strDataBook[8], LocalDate.parse(strDataBook[9]));
                 list.add(book);
             }
             bufferedReader.close();
@@ -76,23 +76,23 @@ public class BookService {
         bookList.stream().filter(s -> s.getId() == id).findFirst().ifPresent(bookList::remove);
         FileUtils.writeData(bookList, linkDBBook);
     }
-    public void updateById(long id, Book book) {
-        List<Book> bookList = readData();
-        Book bookOld = bookList.stream().filter(bookItem -> bookItem.getId() == id).findFirst().orElse(null);
-        if (bookOld != null) {
-            bookOld.setId(book.getId());
-            bookOld.setBookName(book.getBookName());
-            bookOld.setAuthor(book.getAuthor());
-            bookOld.setPublisher(book.getPublisher());
-            bookOld.setYearPub(book.getYearPub());
-            bookOld.setStatus(book.isStatus());
-            bookOld.setShelf(book.getShelf());
-            bookOld.setQuantity(book.getQuantity());
-            bookOld.setETypeBook(book.getETypeBook());
-            bookOld.setPrice(book.getPrice());
-            bookOld.setDescription(book.getDescription());
-            bookOld.setDateAdd(book.getDateAdd());
-        }
-        FileUtils.writeData(bookList, linkDBBook);
-    }
+//    public void updateById(long id, Book book) {
+//        List<Book> bookList = readData();
+//        Book bookOld = bookList.stream().filter(bookItem -> bookItem.getId() == id).findFirst().orElse(null);
+//        if (bookOld != null) {
+//            bookOld.setId(book.getId());
+//            bookOld.setBookName(book.getBookName());
+//            bookOld.setAuthor(book.getAuthor());
+//            bookOld.setPublisher(book.getPublisher());
+//            bookOld.setYearPub(book.getYearPub());
+//            bookOld.setStatus(book.isStatus());
+//            bookOld.setShelf(book.getShelf());
+//            bookOld.setQuantity(book.getQuantity());
+//            bookOld.setETypeBook(book.getETypeBook());
+//            bookOld.setPrice(book.getPrice());
+//            bookOld.setDescription(book.getDescription());
+//            bookOld.setDateAdd(book.getDateAdd());
+//        }
+//        FileUtils.writeData(bookList, linkDBBook);
+//    }
 }

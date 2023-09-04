@@ -18,10 +18,8 @@ public class Book {
     protected String bookName;
     protected String author;
     protected String publisher;
-    protected LocalDate yearPub;
     protected boolean status;
     protected EShelf shelf;
-    protected int quantity;
     protected ETypeBook eTypeBook;
     private double price;
     private String description;
@@ -30,8 +28,8 @@ public class Book {
     @Override
     public String toString() {
         return this.getId() + "," + this.getBookName() + "," + this.getAuthor()
-                + "," + this.getPublisher() + "," + this.getYearPub() + "," + this.isStatus()
-                + this.getShelf().getName() + "," + this.getQuantity() + "," + this.getETypeBook().getName() + "," + this.getPrice()
-                + "," + this.getDescription() + "," + this.getDateAdd() + "," + "\n";
+                + "," + this.getPublisher()+ "," + this.isStatus()+","
+                + this.getShelf().getName() + "," + this.getETypeBook().getName() + "," + this.getPrice()
+                + "," + this.getDescription() + "," + this.getDateAdd() + "\n";
     }
 }

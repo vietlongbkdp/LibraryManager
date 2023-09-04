@@ -18,11 +18,11 @@ public class ClientView {
         do {
             select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
             if(select == 1){
-                LibraryCardView.libraryCardSelect(user);
+                LibraryCardView.libraryCardSelect(user.getId());
             }else if (select ==2){
                 System.out.println("Hello 2");
             }else if (select == 0){
-                LoginView.loginUser(user);
+                LoginView.loginUser(user.getId());
             }else if(select!=0) System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
         }while (select!=0);
     }

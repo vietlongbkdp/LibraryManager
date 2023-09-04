@@ -9,7 +9,7 @@ public class FileUtils {
     static boolean a = folder.mkdir();
 
     public static <T> void writeData(List<T> list, String linkDB){
-        File userFile = new File(linkDB); //"./data/user.txt"
+        File userFile = new File(linkDB);
         String strWrite = "";
         try {
             FileWriter fileWriter = new FileWriter(userFile);
