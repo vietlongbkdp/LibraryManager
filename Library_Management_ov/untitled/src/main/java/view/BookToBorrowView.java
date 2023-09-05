@@ -1,8 +1,18 @@
 package view;
 import Utils.AppUtils;
+import model.Book;
+import model.BookToBorrow;
+import model.LibraryCard;
 import model.User;
 import service.BookService;
 import service.BookToBorrowService;
+import service.LibraryCardService;
+import service.UserService;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class BookToBorrowView {
     public static void bookToBorrowShow(){
@@ -32,7 +42,7 @@ public class BookToBorrowView {
                 bookToBorrowService.expiredManager(user);
             }else if (select ==3){
                 BookToBorrowService bookToBorrowService = new BookToBorrowService();
-//                bookToBorrowService.extendCard();
+                bookToBorrowService.extendCard();
             }else if (select ==4){
                 BookToBorrowService bookToBorrowService = new BookToBorrowService();
                 bookToBorrowService.showData();
@@ -43,5 +53,78 @@ public class BookToBorrowView {
                 AdminView.adminSelect(user);
             }else System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
         }while (select!=0);
+    }
+    public static void bookToBorrowClientShow(){
+        System.out.println("                        DANH MỤC MƯỢN/TRẢ SÁCH");
+        System.out.println("====================================================================");
+        System.out.println(" ╔═══════════════════════════════════════════════════════════╗");
+        System.out.println(" ║                                                           ║");
+        System.out.println(" ║                    1. XEM DANH MỤC SÁCH                   ║");
+        System.out.println(" ║                    2. MƯỢN THÊM SÁCH                      ║");
+        System.out.println(" ║                    4. TRẢ SÁCH                            ║");
+        System.out.println(" ║                    5. HIỂN THỊ DANH SÁCH ĐANG MƯỢN        ║");
+        System.out.println(" ║                    0. QUAY LẠI                            ║");
+        System.out.println(" ║                                                           ║");
+        System.out.println(" ╚═══════════════════════════════════════════════════════════╝");
+    }
+    public static void bookToBorrowSelect(long id){
+        bookToBorrowClientShow();
+        UserService userService = new UserService();
+        List<User> userList = userService.getAllData();
+        User user = userList.stream().filter(s->s.getId()==id).findFirst().orElse(null);
+        int select = 0;
+        do {
+            select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
+            if(select == 1){
+                BookService bookService = new BookService();
+                bookService.findBook(user);
+            }else if (select ==2){
+                BookService bookService = new BookService();
+                BookToBorrowService bookToBorrowService = new BookToBorrowService();
+                List<BookToBorrow> bookToBorrowList = bookToBorrowService.getAllData();
+                long max =1;
+                for (BookToBorrow b:bookToBorrowList) {
+                    if(b.getId() > max){
+                        max = b.getId();
+                    }
+                }
+                LibraryCardService libraryCardService = new LibraryCardService();
+                List<LibraryCard> libraryCardList = libraryCardService.getAllData();
+                LibraryCard libraryCard = libraryCardList.stream().filter(s->s.getIdUser() == user.getId()).findFirst().orElse(null);
+                long timeBorrow = 0;
+                if(libraryCard.getTypeCard().getId() ==1){
+                    timeBorrow = 1;
+                }else timeBorrow =2;
+                List<Book> bookList = bookService.getAllData();
+                List<Book> bookListToReadly = new ArrayList<>();
+                for (Book book:bookList) {
+                    if (book.isStatus()) {
+                        bookListToReadly.add(book);
+                    }
+                    bookService.showBookDetail(bookListToReadly);
+                    long idBorrow = Long.parseLong(AppUtils.typing("Nhập ID sách bạn muốn mượn: "));
+                    Book newBook = bookList.stream().filter(s -> s.getId() == idBorrow).findFirst().orElse(null);
+                    if (newBook == null) {
+                        System.out.println("ID sách không tồn tại!!");
+                    } else {
+                        BookToBorrow bookToBorrowNew = new BookToBorrow(max, newBook.getId(), user.getId(), LocalDate.now(),LocalDate.now().plusMonths(timeBorrow) ,true);
+                        bookToBorrowService.addElement(bookToBorrowNew);
+                    }
+                }
+
+            }else if (select ==3){
+                BookToBorrowService bookToBorrowService = new BookToBorrowService();
+                bookToBorrowService.extendCard();
+            }else if (select ==4){
+                BookToBorrowService bookToBorrowService = new BookToBorrowService();
+                bookToBorrowService.showData();
+            }else if (select ==5){
+                BookToBorrowService bookToBorrowService = new BookToBorrowService();
+//                bookToBorrowService.showReport(user);
+            }else if (select == 0){
+                AdminView.adminSelect(user);
+            }else System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
+        }while (select!=0);
+
     }
 }

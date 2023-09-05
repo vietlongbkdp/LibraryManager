@@ -20,6 +20,6 @@ public class LibraryCard {
 
     @Override
     public String toString() {
-        return this.getId() +","+ this.getIdUser() +","+ this.getTypeCard().getName() +","+ this.getCreateDate() +","+ this.getPeriod().getPeriod()+"\n";
+        return this.getId() +","+ this.getIdUser() +","+ this.getTypeCard().getName() +","+ this.getCreateDate() +","+ this.getPeriod().getPeriodr()+"\n";
     }
 }

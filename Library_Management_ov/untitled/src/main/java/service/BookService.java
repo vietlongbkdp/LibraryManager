@@ -13,7 +13,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import Enum.*;
+import view.BookToBorrowView;
 import view.BookView;
+import view.ClientView;
 
 public class BookService {
     static File folder = new File("data");
@@ -144,7 +146,9 @@ public class BookService {
                 showBookDetail(bookListToReadly);
                 findBook(user);
             }else if (select==0){
+                if(user.getRole().getName().equals("Quản trị viên")){
                 BookView.bookSelect(user);
+                }else BookToBorrowView.bookToBorrowSelect(user.getId());
             }else System.out.println("Bạn đã nhập không đúng, vui lòng nhập lại!!!");
         }while (select!=0);
 

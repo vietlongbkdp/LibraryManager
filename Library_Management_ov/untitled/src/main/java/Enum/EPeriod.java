@@ -7,15 +7,15 @@ public enum EPeriod {
     LOW("6 Tháng", 1),
     MEDIUM("12 Tháng",2),
     HIGH("24 Tháng",3);
-    private String period;
+    private String periodr;
     private  int id;
-    EPeriod(String period, int id){
-        this.period = period;
+    EPeriod(String periodr, int id){
+        this.periodr = periodr;
         this.id = id;
     }
 
-    public void setPeriod(String period) {
-        this.period = period;
+    public void setPeriod(String periodr) {
+        this.periodr = periodr;
     }
 
     public void setPri(int id) {
@@ -23,7 +23,7 @@ public enum EPeriod {
     }
         public static EPeriod findByPeriod(String string) {
         for (EPeriod e : values()) {
-            if (e.getPeriod().equals(string)){
+            if (e.getPeriodr().equals(string)){
                 return e;
             }
         }

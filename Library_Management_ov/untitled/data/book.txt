@@ -1,0 +1,6 @@
+1001,Doreamon,Long Nguyen,Kim Dong,true,A,Tiểu thuyết,10000.0,Hay lam,2023-09-05
+1002,Cau be but chi,Dat Hang,Kim Dong,true,A,Truyện ngắn,20000.0,Truyện tranh vui,2023-09-05
+1003,Carlsberg Viet Nam,Nguyen Long,Giao duc,true,C,Sức khoẻ và thể thao,50000.0,Sách về bia,2023-09-05
+1004,7 vien ngoc rong,Ajinomoto,Thuan Hoa,true,B,Truyện ngắn,15000.0,Nhạt nhẽo,2023-09-05
+1005,Nobita di hoc,Long Nguyen,Kim Dong,true,D,Kiến thức khoa học,10000.0,Hay lam,2023-09-05
+1006,Chuyen doi,Long Nguyen,Kim Dong,true,B,Tiểu thuyết,10000.0,Hay lam,2023-09-05

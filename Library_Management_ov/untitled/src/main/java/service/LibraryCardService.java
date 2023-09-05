@@ -1,4 +1,5 @@
 package service;
+import Utils.DateUltis;
 import Utils.FileUtils;
 import model.LibraryCard;
 
@@ -7,6 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import Enum.*;
+import model.User;
+
 import java.lang.*;
 
 
@@ -61,6 +64,29 @@ public class LibraryCardService{
             strShowData.append(u.toString());
         }
         System.out.println(strShowData);
+    }
+    public void showLibraryCard(List<LibraryCard> list){
+        UserService userService = new UserService();
+        List<User> userList = userService.getAllData();
+        System.out.println("                                                              Danh sách thẻ thư viện ");
+        System.out.println("=================================================================================================================================================================================");
+        System.out.printf("|%-4s| %-20s| %-20s| %-20s| %-20s| %-20s| %-20s| %-23s|\n", "ID", "Tên đọc giả", "SĐT", "Hạng thẻ", "Ngày tạo", "Ngày hết hạn","Trạng thái", "Phí gia hạn");
+        for (LibraryCard libraryCard : list) {
+            User user = userList.stream().filter(s->s.getId() == libraryCard.getIdUser()).findFirst().orElse(null);
+            int period = 0;
+            if(libraryCard.getPeriod().getId() ==1){
+                period =6;
+            } else if (libraryCard.getPeriod().getId() ==2) {
+                period =12;
+            } else if (libraryCard.getPeriod().getId() ==3) {
+                period = 24;
+            }
+            String isStatusCard = "";
+            if (DateUltis.getDate(libraryCard.getCreateDate().plusMonths(period), LocalDate.now())>0){
+                isStatusCard = "Hết hạn";
+            }else isStatusCard = "Chưa hết hạn";
+            System.out.printf("|%-4s| %-20s| %-20s| %-20s| %-20s| %-20s|%-20s| %-23s|\n", libraryCard.getId(), user.getUserName(), user.getPhone(), libraryCard.getTypeCard().getName(), libraryCard.getCreateDate(), libraryCard.getCreateDate().plusMonths(period), isStatusCard,libraryCard.getTypeCard().getId()*50000+"đồng");
+        }
     }
     public static List<LibraryCard> readData() {
         File libraryCardFile = new File("./data/libraryCard.txt");

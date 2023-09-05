@@ -15,4 +15,8 @@ public class DateUltis {
         totalDays += period.getDays();
         return totalDays;
     }
+    public static int getDate(LocalDate day1, LocalDate day2){
+        Period period = day1.until(day2);
+        return period.getDays();
+    }
 }

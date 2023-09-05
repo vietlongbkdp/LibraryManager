@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import Enum.*;
@@ -163,15 +164,13 @@ public class BookToBorrowService {
             } else System.out.println("Bạn đã nhập không đúng, vui lòng nhập lại!!!");
         } while (select != 0);
     }
-    public void extendCard(long id){
+    public void extendCard(){
         LibraryCardService libraryCardService = new LibraryCardService();
         List<LibraryCard> libraryCardList = libraryCardService.getAllData();
-        LibraryCard libraryCardToExtend = libraryCardList.stream().filter(s->s.getId()==id).findFirst().orElse(null);
-        if(libraryCardToExtend==null){
-            System.out.println("ID không đúng, vui lòng kiểm tra lại");
-        }else {
-
-        }
+        libraryCardService.showLibraryCard(libraryCardList);
+        long id = Long.parseLong(AppUtils.typing("Nhập ID thẻ bạn muốn gia hạn"));
+        Objects.requireNonNull(libraryCardList.stream().filter(s -> s.getId() == id).findFirst().orElse(null)).setCreateDate(LocalDate.now());
+        libraryCardService.showLibraryCard(libraryCardList);
     }
 
     public void expiredManager(User user) {

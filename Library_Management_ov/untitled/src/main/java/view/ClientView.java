@@ -10,7 +10,7 @@ public class ClientView {
         System.out.println("=============================MENU===========================");
         System.out.println("1: Thẻ thư viện của tôi");
         System.out.println("2: Quản lý danh mục mượn/trả sách");
-        System.out.println("0: Quay lại");
+        System.out.println("0: Đăng xuất");
     }
     public static void clientSelect(User user){
         clientShow(user);
@@ -20,9 +20,9 @@ public class ClientView {
             if(select == 1){
                 LibraryCardView.libraryCardSelect(user.getId());
             }else if (select ==2){
-                System.out.println("Hello 2");
+                BookToBorrowView.bookToBorrowSelect(user.getId());
             }else if (select == 0){
-                LoginView.loginUser(user.getId());
+                StartView.start();
             }else if(select!=0) System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
         }while (select!=0);
     }
