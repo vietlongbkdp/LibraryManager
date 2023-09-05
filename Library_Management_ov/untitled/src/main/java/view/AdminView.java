@@ -28,7 +28,7 @@ public class AdminView {
             }else if (select == 0){
                 StartView.start();
             }else if(select == 3){
-                //                LoginView.loginUser(user);
+                BookToBorrowView.borrowSelect(user);
             }else System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
         }while (select!=0);
     }

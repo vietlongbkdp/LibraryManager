@@ -211,4 +211,11 @@ public class UserService {
             } else System.out.println("Bạn đã nhập không đúng, vui lòng nhập lại!!!");
         } while (select != 0);
     }
+    /**
+     let a = {
+        age : 12
+     }
+
+     console.log(a ||
+     */
 }

@@ -10,16 +10,16 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookActive {
+public class BookToBorrow {
     private long id;
     private long bookID;
-    private int quantity;
+    private long idUser;
     private LocalDate borrowDate;
     private LocalDate returnDate;
     private boolean status;
 
     @Override
     public String toString() {
-        return id +","+ bookID +","+ quantity +","+ borrowDate +","+ returnDate +","+ status +"\n";
+        return id +","+ bookID +","+ idUser +","+ borrowDate +","+ returnDate +","+ status +"\n";
     }
 }
