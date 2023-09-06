@@ -35,11 +35,13 @@ public class BookToBorrowService {
             FileReader fileReader = new FileReader(userFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-            while ((strLine = bufferedReader.readLine()) != null) {
-                String[] strDataBookToBorrow = strLine.split(",");
-                BookToBorrow bookToBorrow = new BookToBorrow(Long.parseLong(strDataBookToBorrow[0]), Long.parseLong(strDataBookToBorrow[1]), Long.parseLong(strDataBookToBorrow[2]), LocalDate.parse(strDataBookToBorrow[3]), LocalDate.parse(strDataBookToBorrow[4]), Boolean.parseBoolean(strDataBookToBorrow[5]));
-                list.add(bookToBorrow);
-            }
+            try {
+                while ((strLine = bufferedReader.readLine()) != null) {
+                    String[] strDataBookToBorrow = strLine.split(",");
+                    BookToBorrow bookToBorrow = new BookToBorrow(Long.parseLong(strDataBookToBorrow[0]), Long.parseLong(strDataBookToBorrow[1]), Long.parseLong(strDataBookToBorrow[2]), LocalDate.parse(strDataBookToBorrow[3]), LocalDate.parse(strDataBookToBorrow[4]), Boolean.parseBoolean(strDataBookToBorrow[5]));
+                    list.add(bookToBorrow);
+                }
+            }catch (Exception ignored){}
             bufferedReader.close();
             fileReader.close();
         } catch (IOException ignored) {
@@ -172,7 +174,40 @@ public class BookToBorrowService {
         Objects.requireNonNull(libraryCardList.stream().filter(s -> s.getId() == id).findFirst().orElse(null)).setCreateDate(LocalDate.now());
         libraryCardService.showLibraryCard(libraryCardList);
     }
+    public void showDataClinet() {
+        List<BookToBorrow> bookToBorrowList = readData();
+        if (bookToBorrowList.isEmpty()) {
+            System.out.println("Danh sách User đang trống, vui lòng thêm vào!!");
+        } else {
+            showBookDetailClient(bookToBorrowList);
+        }
+    }
 
+    public void showBookDetailClient(List<BookToBorrow> list) {
+        System.out.println("                                                              Danh sách đang mượn ");
+        System.out.println("=================================================================================================================================================================================");
+        System.out.printf("| %-4s| %-20s| %-20s| %-20s| %-15s| %-12s| %-23s|\n", "ID", "Tên sách", "Tên người mượn", "SĐT", "Ngày mượn", "Ngày trả","Trạng thái");
+        BookService bookService = new BookService();
+        List<Book> bookList = bookService.getAllData();
+        UserService userService = new UserService();
+        List<User> userList = userService.getAllData();
+        LibraryCardService libraryCardService= new LibraryCardService();
+        List<LibraryCard> libraryCardList = libraryCardService.getAllData();
+        for (BookToBorrow u : list) {
+            Book book = bookList.stream().filter(book1 -> book1.getId() == u.getBookID()).findFirst().orElse(null);
+            User user = userList.stream().filter(user1 -> user1.getId() == u.getIdUser()).findFirst().orElse(null);
+            LibraryCard libraryCard =  libraryCardList.stream().filter(libraryCard1 -> libraryCard1.getIdUser() == user.getId()).findFirst().orElse(null);
+            long period=0;
+            if(libraryCard.getTypeCard().getId() == 1){
+                period = 1;
+            }else period = 2;
+            String cardStatus = "";
+            if (u.isStatus()) {
+                cardStatus = "Chưa quá hạn";
+            } else cardStatus = "Qúa hạn";
+            System.out.printf("| %-4s| %-20s| %-20s| %-20s| %-15s| %-12s| %-23s|\n", book.getId(), book.getBookName(), user.getUserName(), user.getPhone(), LocalDate.now(), LocalDate.now().plusMonths(period), cardStatus);
+        }
+    }
     public void expiredManager(User user) {
         BookToBorrowService bookToBorrowService = new BookToBorrowService();
         List<BookToBorrow> bookToBorrowList = getAllData();

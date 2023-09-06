@@ -50,7 +50,7 @@ public class BookService {
             }
             bufferedReader.close();
             fileReader.close();
-        } catch (IOException ignored) {
+        } catch (IOException | ArrayIndexOutOfBoundsException ignored) {
         }
         return list;
     }
