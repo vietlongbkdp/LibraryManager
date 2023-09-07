@@ -16,7 +16,7 @@ public class BookView {
         System.out.println(" ║                                                           ║");
         System.out.println(" ║                    1. TÌM SÁCH                            ║");
         System.out.println(" ║                    2. THÊM SÁCH VÀO THƯ VIỆN              ║");
-        System.out.println(" ║                    3. CHỈNH SỬA THÔNG TIN SÁCH            ║");
+        System.out.println(" ║                    3. CẬP NHẬT THÔNG TIN SÁCH             ║");
         System.out.println(" ║                    4. XOÁ SÁCH KHỎI THƯ VIỆN              ║");
         System.out.println(" ║                    5. HIỂN THỊ TẤT CẢ SÁCH                ║");
         System.out.println(" ║                    0. QUAY LẠI                            ║");
@@ -36,7 +36,7 @@ public class BookView {
                     bookService.addElement(RegisterView.registerNewBook());
                     bookService.showData();
                 }else if (select ==3){
-                    System.out.println("HIHI ĐOẠN NI TƯƠNG TỰ TÌM KIẾM EM TẠM BỎ QUA");
+                    updateBook();
                 }else if (select ==4){
                     BookService bookService = new BookService();
                     bookService.showData();
@@ -53,5 +53,11 @@ public class BookView {
                     AdminView.adminSelect(user);
                 }else System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
             }while (select!=0);
+    }
+    public static void updateBook(){
+        BookService bookService = new BookService();
+        bookService.showData();
+        long id = Long.parseLong(AppUtils.typing("Nhập ID sách bạn muốn cập nhật: "));
+        bookService.updateById(id, RegisterView.registerNewBook());
     }
 }

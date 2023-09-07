@@ -33,24 +33,25 @@ public class UserService {
     }
 
     public void updateById(long id, User user) {
-        List<User> userList = readData();
-        User userOld = userList.stream().filter(userItem -> userItem.getId() == id).findFirst().orElse(null);
-        if (userOld != null) {
-            userOld.setId(user.getId());
-            userOld.setAccount(user.getAccount());
-            userOld.setPassword(user.getPassword());
-            userOld.setUserName(user.getUserName());
-            userOld.setPhone(user.getPhone());
-            userOld.setAddress(user.getAddress());
-            userOld.setDoB(user.getDoB());
-            userOld.setEmail(user.getEmail());
-            userOld.setGender(user.getGender());
-            userOld.setRole(user.getRole());
-            userOld.setHasCard(user.isHasCard());
+        UserService userService = new UserService();
+        List<User> userList = userService.getAllData();
+        for (User b : userList) {
+            if (b.getId() == id) {
+                b.setId(user.getId());
+                b.setAccount(user.getAccount());
+                b.setPassword(user.getPassword());
+                b.setUserName(user.getUserName());
+                b.setPhone(user.getPhone());
+                b.setAddress(user.getAddress());
+                b.setDoB(user.getDoB());
+                b.setEmail(user.getEmail());
+                b.setGender(user.getGender());
+                b.setRole(user.getRole());
+                b.setHasCard(user.isHasCard());
+            }
+            FileUtils.writeData(userList, linkDBUser);
         }
-        FileUtils.writeData(userList, linkDBUser);
     }
-
     public void deleteById(long id) {
         List<User> userList = readData();
         userList.stream().filter(s -> s.getId() == id).findFirst().ifPresent(userList::remove);

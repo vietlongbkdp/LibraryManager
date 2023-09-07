@@ -3,4 +3,4 @@
 1003,Carlsberg Viet Nam,Nguyen Long,Giao duc,true,C,Sức khoẻ và thể thao,50000.0,Sách về bia,2023-09-05
 1004,7 vien ngoc rong,Ajinomoto,Thuan Hoa,true,B,Truyện ngắn,15000.0,Nhạt nhẽo,2023-09-05
 1005,Nobita di hoc,Long Nguyen,Kim Dong,false,D,Kiến thức khoa học,10000.0,Hay lam,2023-09-05
-1006,Chuyen doi,Long Nguyen,Kim Dong,false,B,Tiểu thuyết,10000.0,Hay lam,2023-09-05
+1000,Sach Hoa,Nguyen Dat,Kim Dong,true,A,Tiểu thuyết,10700.0,Hya lma,2023-09-07

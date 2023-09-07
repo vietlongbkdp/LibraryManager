@@ -153,23 +153,23 @@ public class BookService {
         }while (select!=0);
 
     }
-//    public void updateById(long id, Book book) {
-//        List<Book> bookList = readData();
-//        Book bookOld = bookList.stream().filter(bookItem -> bookItem.getId() == id).findFirst().orElse(null);
-//        if (bookOld != null) {
-//            bookOld.setId(book.getId());
-//            bookOld.setBookName(book.getBookName());
-//            bookOld.setAuthor(book.getAuthor());
-//            bookOld.setPublisher(book.getPublisher());
-//            bookOld.setYearPub(book.getYearPub());
-//            bookOld.setStatus(book.isStatus());
-//            bookOld.setShelf(book.getShelf());
-//            bookOld.setQuantity(book.getQuantity());
-//            bookOld.setETypeBook(book.getETypeBook());
-//            bookOld.setPrice(book.getPrice());
-//            bookOld.setDescription(book.getDescription());
-//            bookOld.setDateAdd(book.getDateAdd());
-//        }
-//        FileUtils.writeData(bookList, linkDBBook);
-//    }
+    public void updateById(long id, Book book) {
+        BookService bookService = new BookService();
+        List<Book> bookList = bookService.getAllData();
+        for (Book b:bookList) {
+            if(b.getId() == id){
+                b.setId(book.getId());
+                b.setBookName(book.getBookName());
+                b.setAuthor(book.getAuthor());
+                b.setPublisher(book.getPublisher());
+                b.setStatus(book.isStatus());
+                b.setShelf(book.getShelf());
+                b.setETypeBook(book.getETypeBook());
+                b.setPrice(book.getPrice());
+                b.setDescription(book.getDescription());
+                b.setDateAdd(book.getDateAdd());
+            }
+        }
+        FileUtils.writeData(bookList, linkDBBook);
+    }
 }

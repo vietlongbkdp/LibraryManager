@@ -29,14 +29,13 @@ public class UserView {
         do {
             select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
             if(select == 1){
-                UserService userService = new UserService();
-                userService.findUser(user);
+
             }else if (select ==2){
                 UserService userService = new UserService();
                 userService.addElement(RegisterView.registerNewUser());
                 userService.showData();
             }else if (select ==3){
-                System.out.println("HIHI ĐOẠN NI TƯƠNG TỰ EM TẠM ĐỂ LẠI");
+                updateUser();
             }else if (select ==4){
                 UserService userService = new UserService();
                 userService.showData();
@@ -67,5 +66,15 @@ public class UserView {
                 AdminView.adminSelect(user);
             }else System.out.println("Bạn đã nhập sai rồi, vui lòng nhập lại");
         }while (select!=0);
+    }
+    public static void updateUser(){
+        UserService userService = new UserService();
+        userService.showData();
+        long id = Long.parseLong(AppUtils.typing("Nhập ID User bạn muốn cập nhật: "));
+        userService.updateById(id, RegisterView.registerNewUser());
+    }
+    public static void findUser(){
+        UserService userService = new UserService();
+        userService.findUser(user);
     }
 }
