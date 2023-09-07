@@ -1,10 +1,7 @@
 cần sửa:
 1. Clean code lại
 2. xử lý hết các ngoại lệ nhập
-3. chuyển đổi tìm kiếm chữ hoa chữ thường
-4. mã hoá password
-5. sửa thông tin user, book
 6. mỗi lần xong thì chạy lại hàm hiển thị để dễ nhìn, dễ chọn
-7. Khởi tạo sẵn các đối tượng bằng các lớp khởi tạo, để tránh mất thời gian demo
-8. tìm kiếm nếu không có thì báo ko có.
-9. Chưa xong: Gia hạn thẻ Admin còn null, lập báo cáo chưa làm,
+7. Khởi tạo sẵn các đối tượng bằng các lớp khởi tạo, để tránh mất thời gian demo??
+8. tìm kiếm nếu không có thì báo ko có.??
+9. Chưa xong: lập báo cáo chưa làm

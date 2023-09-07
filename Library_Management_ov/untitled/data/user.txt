@@ -1,4 +1,5 @@
-1123,long123,Long1234@@,Dang Quang,0987526319,Hue,1994-02-11,quangdd@gmail.com,Nữ,Quản trị viên,false
-1124,quangdepchai123,Quang123@,Dang Quang,0987526319,Hue,1994-02-11,quangdd@gmail.com,Nữ,Đọc giả,false
-1125,quangdepchai123,Quang123@,Dang Quang,0987526319,Hue,1994-02-11,quangdd@gmail.com,Nữ,Đọc giả,false
-1133,quangdang123,Quang1234@@,Nguyen Van Qang,0987654348,Hue,1996-11-23,djlkdjd@gmail.com,Nữ,Đọc giả,false
+1900,long123,$2a$12$gXXCcdkq4wCqpfp1xxkCVeJXHXAuZCMdeaTKFFMLR1F1uyobmuGCS,Nguyen Viet Long,0987654321,Hue,1997-05-31,vietlongbkdp@gmail.com,Nam,Quản trị viên,false
+1001,quocdat1,$2a$12$D4nEcHc6zmJBhZlNRC1fXOdOYtJu/khsCtNMKHRCy86LE.WruTIh.,Hang Quoc Dat,0912837162,Da Nang,1997-03-22,quocdathang@gmail.com,Nam,Đọc giả,false
+1003,tuongle123,$2a$12$l.Vir.mlz2g9gYhSEnSuLuu2MkBbFbOtYKA1rr0Isll4zgQM0L58u,Le Ba Tuong,0987654321,TP HCM,1998-04-21,tuongle@gmail.com,Nam,Đọc giả,false
+1004,vinh123,$2a$12$VgC/YO.AMrcl/ZiEL2qnreRP5QTywECQIexKnlorCC2XxuL/aWLuC,Le Tan Vinh,0987897623,Hue,2002-11-23,vinh123@gmail.com,Nam,Đọc giả,false
+1005,quang123,$2a$12$Z3G4/mrq53AIfbww6XN8K.NvQuGdhIVQHw8WFIx/ey1iD.yuxGDTS,Dang Van Quang,0982746312,TPHCM,1992-03-12,quangdang123@gmail.com,Nam,Đọc giả,true

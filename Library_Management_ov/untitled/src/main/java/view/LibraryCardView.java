@@ -100,6 +100,7 @@ public class LibraryCardView {
         List<LibraryCard> libraryCardList = LibraryCardService.readData();
         LibraryCard libraryCard = libraryCardList.stream().filter(s->s.getIdUser() == user.getId()).findFirst().orElse(null);
             LocalDate dateEnd = null;
+            assert libraryCard != null;
             if(libraryCard.getPeriod().getId() == 1){
                 dateEnd = libraryCard.getCreateDate().plusMonths(6);
             } else if (libraryCard.getPeriod().getId() == 2) {
@@ -108,22 +109,32 @@ public class LibraryCardView {
                 dateEnd = libraryCard.getCreateDate().plusMonths(24);
             }
             System.out.println();
-            System.out.println("                       THẺ THƯ VIỆN                      ");
-            System.out.println("=========================================================");
-            System.out.println(" ╔══════════════════════════════════════════════════════");
-            System.out.println(" ║                                                      ");
-            System.out.println(" ║   Họ và tên     :    " + user.getUserName());
-            System.out.println(" ║   Giới tính     :    " + user.getGender().getName());
-            System.out.println(" ║   Ngày sinh     :    " + user.getDoB().toString());
-            System.out.println(" ║   SĐT           :    " + user.getPhone());
-            System.out.println(" ║   Địa chỉ       :    " + user.getAddress());
-            System.out.println(" ║   Email         :    " + user.getEmail());
-            System.out.println(" ║   Hạng thẻ      :    " + libraryCard.getTypeCard().getName());
-            System.out.println(" ║   Ngày đăng ký  :    " + libraryCard.getCreateDate().toString());
-            System.out.println(" ║   Ngày hết hạn  :    " + dateEnd);
-            System.out.println(" ║   Mã số thẻ     :    " + libraryCard.getId());
-            System.out.println(" ║                                                      ");
-            System.out.println(" ╚══════════════════════════════════════════════════════");
+            System.out.println("                          THẺ THƯ VIỆN                      ");
+            System.out.println(" ===========================================================");
+            System.out.println(" ╔═════════════════════════════════════════════════════════╗");
+            System.out.println(" ║                                                         ║");
+            System.out.printf(" ║   Họ và tên     :    %30s     ║", user.getUserName());
+            System.out.println();
+            System.out.printf(" ║   Giới tính     :    %30s     ║", user.getGender().getName());
+            System.out.println();
+            System.out.printf(" ║   Ngày sinh     :    %30s     ║", user.getDoB().toString());
+            System.out.println();
+            System.out.printf(" ║   SĐT           :    %30s     ║", user.getPhone());
+            System.out.println();
+            System.out.printf(" ║   Địa chỉ       :    %30s     ║", user.getAddress());
+            System.out.println();
+            System.out.printf(" ║   Email         :    %30s     ║", user.getEmail());
+            System.out.println();
+            System.out.printf(" ║   Hạng thẻ      :    %30s     ║", libraryCard.getTypeCard().getName());
+            System.out.println();
+            System.out.printf(" ║   Ngày đăng ký  :    %30s     ║", libraryCard.getCreateDate().toString());
+            System.out.println();
+            System.out.printf(" ║   Ngày hết hạn  :    %30s     ║", dateEnd);
+            System.out.println();
+            System.out.printf(" ║   Mã số thẻ     :    %30s     ║", libraryCard.getId());
+            System.out.println();
+            System.out.println(" ║                                                         ║");
+            System.out.println(" ╚═════════════════════════════════════════════════════════╝");
         }
     }
     public static void removeLibraryCard(User user) {

@@ -1,5 +1,6 @@
 package view;
 import Utils.AppUtils;
+import Utils.PasswordUtils;
 import Utils.ValidateUntil;
 import model.Book;
 import model.User;
@@ -82,7 +83,8 @@ public class RegisterView {
             password = AppUtils.typing("Tạo mật khẩu : ");
             rePassword = AppUtils.typing("Xác nhận lại mật khẩu: ");
         } while (!ValidateUntil.checkPassword(password) && !password.equals(rePassword));
-        return new User(id, account, password, name, phone, address, doD, email, gender, ERole.CLIENT, false);
+        String strPassword = PasswordUtils.generatePassword(password);
+        return new User(id, account, strPassword, name, phone, address, doD, email, gender, ERole.CLIENT, false);
     }
     public static Book registerNewBook() {
         BookService bookService = new BookService();

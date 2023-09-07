@@ -40,7 +40,6 @@ public class BookService {
         try {
             FileReader fileReader = new FileReader(bookFile);
             BufferedReader bufferedReader = new BufferedReader(fileReader);
-
             while ((strLine = bufferedReader.readLine()) != null) {
                 String[] strDataBook = strLine.split(",");
                 Book book = new Book(Long.parseLong(strDataBook[0]), strDataBook[1],
@@ -103,47 +102,16 @@ public class BookService {
         do {
             select = Integer.parseInt(AppUtils.typing("Bạn muốn tìm sách theo: "));
             if(select == 1){
-                String strToFind = AppUtils.typing("Nhập tên sách bạn muốn tìm");
-                List<Book> bookList = getAllData();
-                List<Book> bookListToName = new ArrayList<>();
-                for (Book book:bookList) {
-                    if(book.getBookName().contains(strToFind)){
-                        bookListToName.add(book);
-                    }
-                }
-                showBookDetail(bookListToName);
+                findBookByName();
                 findBook(user);
             }else if(select ==2){
-                String strToFind = AppUtils.typing("Nhập kệ sách bạn muốn tìm:  A    B    C    D    E   F   G");
-                List<Book> bookList = getAllData();
-                List<Book> bookListToShelf = new ArrayList<>();
-                for (Book book:bookList) {
-                    if(book.getShelf().getName().contains(strToFind)){
-                        bookListToShelf.add(book);
-                    }
-                }
-                showBookDetail(bookListToShelf);
+                findBookByShelf();
                 findBook(user);
             } else if (select==3) {
-                int strToFind = Integer.parseInt(AppUtils.typing("Nhập thể loại bạn muốn tìm: 1: Tiểu thuyết    2: Truyện ngắn    3: Kiến thức khoa học    4: Sức khoẻ và thể thao"));
-                List<Book> bookList = getAllData();
-                List<Book> bookListToType = new ArrayList<>();
-                for (Book book:bookList) {
-                    if(book.getETypeBook().getId()==strToFind){
-                        bookListToType.add(book);
-                    }
-                }
-                showBookDetail(bookListToType);
+                findBookByType();
                 findBook(user);
             } else if (select==4) {
-                List<Book> bookList = getAllData();
-                List<Book> bookListToReadly = new ArrayList<>();
-                for (Book book:bookList) {
-                    if(book.isStatus()){
-                        bookListToReadly.add(book);
-                    }
-                }
-                showBookDetail(bookListToReadly);
+                findBookByStatus();
                 findBook(user);
             }else if (select==0){
                 if(user.getRole().getName().equals("Quản trị viên")){
@@ -171,5 +139,66 @@ public class BookService {
             }
         }
         FileUtils.writeData(bookList, linkDBBook);
+    }
+    public void findBookByName() {
+        String strToFind = AppUtils.typing("Nhập tên sách bạn muốn tìm");
+        List<Book> bookList = getAllData();
+        if (bookList.isEmpty()) {
+            System.out.println("Danh mục sách đang trống");
+        } else {
+            List<Book> bookListToName = new ArrayList<>();
+            for (Book book : bookList) {
+                if (book.getBookName().contains(strToFind)) {
+                    bookListToName.add(book);
+                }
+            }
+            showBookDetail(bookListToName);
+        }
+    }
+    public void findBookByShelf() {
+        String strToFind = AppUtils.typing("Nhập kệ sách bạn muốn tìm:  A    B    C    D    E   F   G");
+        List<Book> bookList = getAllData();
+        if (bookList.isEmpty()) {
+            System.out.println("Danh mục sách đang trống");
+        } else {
+
+            List<Book> bookListToShelf = new ArrayList<>();
+            for (Book book : bookList) {
+                if (book.getShelf().getName().contains(strToFind)) {
+                    bookListToShelf.add(book);
+                }
+            }
+            showBookDetail(bookListToShelf);
+        }
+    }
+
+    public void findBookByType() {
+        int strToFind = Integer.parseInt(AppUtils.typing("Nhập thể loại bạn muốn tìm: 1: Tiểu thuyết    2: Truyện ngắn    3: Kiến thức khoa học    4: Sức khoẻ và thể thao"));
+        List<Book> bookList = getAllData();
+        if (bookList.isEmpty()) {
+            System.out.println("Danh mục sách đang trống");
+        } else {
+            List<Book> bookListToType = new ArrayList<>();
+            for (Book book : bookList) {
+                if (book.getETypeBook().getId() == strToFind) {
+                    bookListToType.add(book);
+                }
+            }
+            showBookDetail(bookListToType);
+        }
+    }
+    public void findBookByStatus() {
+        List<Book> bookList = getAllData();
+        if (bookList.isEmpty()) {
+            System.out.println("Danh mục sách đang trống");
+        } else {
+            List<Book> bookListToReadly = new ArrayList<>();
+            for (Book book : bookList) {
+                if (book.isStatus()) {
+                    bookListToReadly.add(book);
+                }
+            }
+            showBookDetail(bookListToReadly);
+        }
     }
 }

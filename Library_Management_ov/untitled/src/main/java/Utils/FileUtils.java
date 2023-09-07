@@ -22,9 +22,7 @@ public class FileUtils {
             }
             bufferedWriter.flush();
             fileWriter.close();
-            System.out.println("Ghi dữ liệu thành công");
-        } catch (IOException e) {
-            System.err.println("LỖI TRONG QUÁ TRÌNH ĐỌC GHI DỮ LIỆU");
+        } catch (IOException ignored) {
         }
     }
 

@@ -80,6 +80,7 @@ public class BookToBorrowService {
     }
 
     public void showBookToBorrowDetail(List<BookToBorrow> bookToBorrowsList) {
+
         System.out.println("                                                              LIST SÁCH MƯỢN");
         System.out.println("=================================================================================================================================================================================");
         System.out.printf("|%-4s| %-20s| %-20s| %-20s| %-20s| %-15s| %-12s| %-23s|\n", "ID", "Tên sách", "Người mượn", "SĐT", "Email", "Ngày Mượn", "Ngày Trả", "Trạng thái");
@@ -173,6 +174,7 @@ public class BookToBorrowService {
         long id = Long.parseLong(AppUtils.typing("Nhập ID thẻ bạn muốn gia hạn"));
         Objects.requireNonNull(libraryCardList.stream().filter(s -> s.getId() == id).findFirst().orElse(null)).setCreateDate(LocalDate.now());
         libraryCardService.showLibraryCard(libraryCardList);
+        FileUtils.writeData(libraryCardList,"./data/libraryCard.txt");
     }
     public void showDataClinet() {
         List<BookToBorrow> bookToBorrowList = readData();
@@ -223,16 +225,12 @@ public class BookToBorrowService {
                 bookStatus = "Chưa quá hạn";
             } else bookStatus = "Quá hạn";
             double payment = 0;
-            if (b.getReturnDate() == null) {
-                double date = DateUltis.getDateBetwen(LocalDate.now(), b.getBorrowDate());
-            } else {
-                double date = DateUltis.getDateBetwen(b.getReturnDate(), b.getBorrowDate());
+            double date = DateUltis.getDateBetwen(b.getBorrowDate(), b.getReturnDate());
                 if (date > 30) {
-                    payment = (date - 30) * 2000;
+                    payment = (date - 30.0) * 2000.0;
                 } else payment = 0;
                 System.out.printf("|%-4s| %-20s| %-20s| %-20s| %-20s| %-20s| %-20s| %-20s|\n", b.getId(), bookService.getById(b.getBookID()).getBookName(), userService.getById(b.getIdUser()).getUserName(), userService.getById(b.getIdUser()).getPhone(), b.getBorrowDate(), b.getReturnDate(), bookStatus, payment + " đồng");
                 findBookToBorrow(user);
             }
         }
     }
-}

@@ -1,6 +1,6 @@
-1001,Doreamon,Long Nguyen,Kim Dong,false,A,Tiểu thuyết,10000.0,Hay lam,2023-09-05
-1002,Cau be but chi,Dat Hang,Kim Dong,false,A,Truyện ngắn,20000.0,Truyện tranh vui,2023-09-05
-1003,Carlsberg Viet Nam,Nguyen Long,Giao duc,true,C,Sức khoẻ và thể thao,50000.0,Sách về bia,2023-09-05
-1004,7 vien ngoc rong,Ajinomoto,Thuan Hoa,true,B,Truyện ngắn,15000.0,Nhạt nhẽo,2023-09-05
-1005,Nobita di hoc,Long Nguyen,Kim Dong,false,D,Kiến thức khoa học,10000.0,Hay lam,2023-09-05
-1000,Sach Hoa,Nguyen Dat,Kim Dong,true,A,Tiểu thuyết,10700.0,Hya lma,2023-09-07
+1201,Sach Toan,Nguyen Long,Giao duc,false,A,Kiến thức khoa học,10000.0,Sach bai tap,2023-09-07
+1202,Sach Van,Hang Dat,Giao duc,true,A,Tiểu thuyết,12000.0,Sach giao khoa,2023-09-07
+1203,Sach Ly,Le Tuong,Giao Duc,true,A,Tiểu thuyết,15000.0,Sach giai,2023-09-07
+1204,Sach Hoa,Pham Vinh,Kim Dong,false,B,Truyện ngắn,20000.0,Sach Truyen,2023-09-07
+1205,Sach Tieng Anh,Dang Quang,Giao duc,true,B,Kiến thức khoa học,17000.0,Sach nham nhi,2023-09-07
+1206,Sach Lich Su,Viet Long,Kim Dong,true,C,Truyện ngắn,12000.0,1,2023-09-07

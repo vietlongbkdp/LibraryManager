@@ -1,6 +1,7 @@
 package view;
 
 import Utils.AppUtils;
+import Utils.PasswordUtils;
 import model.User;
 import service.UserService;
 import java.util.List;
@@ -11,7 +12,8 @@ public class LoginView {
         do {
             String account = AppUtils.typing("Mời nhập tên đăng nhập của bạn: ");
             String password = AppUtils.typing("Nhập mật khẩu: ");
-        user = UserService.readData().stream().filter(s->s.getAccount().equals(account)&&s.getPassword().equals(password)).findFirst().orElse(null);
+
+        user = UserService.readData().stream().filter(s->s.getAccount().equals(account)&& PasswordUtils.isValid(password, s.getPassword())).findFirst().orElse(null);
         if(user == null) System.err.println("Tên đăng nhập hoặc mật khẩu không đúng, vui lòng nhập lại");
         }while (user == null);
         if(user.getRole().getName().equals("Đọc giả")){

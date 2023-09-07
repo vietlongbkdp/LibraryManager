@@ -52,6 +52,7 @@ public class UserService {
             FileUtils.writeData(userList, linkDBUser);
         }
     }
+
     public void deleteById(long id) {
         List<User> userList = readData();
         userList.stream().filter(s -> s.getId() == id).findFirst().ifPresent(userList::remove);
@@ -88,6 +89,7 @@ public class UserService {
             return false;
         } else return true;
     }
+
     public void setAdmin(long id) {
         List<User> list = getAllData();
         User user = list.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
@@ -106,6 +108,7 @@ public class UserService {
             }
         }
     }
+
     public void removeAdmin(long id) {
         List<User> list = getAllData();
         User user = list.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
@@ -162,61 +165,66 @@ public class UserService {
         do {
             select = Integer.parseInt(AppUtils.typing("Bạn muốn tìm theo: "));
             if (select == 1) {
-                String strToFind = AppUtils.typing("Nhập tên user bạn muốn tìm");
-                List<User> userList = getAllData();
-                List<User> userListToName = new ArrayList<>();
-                for (User u : userList) {
-                    if (u.getUserName().contains(strToFind)) {
-                        userListToName.add(u);
-                    }
-                }
-                showUserDetail(userListToName);
+                findByUser();
                 findUser(user);
             } else if (select == 2) {
-                int strToFind = Integer.parseInt(AppUtils.typing("Chọn giới tính :  1: Nam     2: Nữ     3: Bêđê"));
-                List<User> userList = getAllData();
-                List<User> userListToGender = new ArrayList<>();
-                for (User u : userList) {
-                    if (u.getGender().getId() == strToFind) {
-                        userListToGender.add(u);
-                    }
-                }
-                showUserDetail(userListToGender);
+                findByGender();
                 findUser(user);
             } else if (select == 3) {
-                int strToFind = Integer.parseInt(AppUtils.typing("Nhập thể loại bạn muốn tìm: 1: Đọc giả    2: Quản trị viên"));
-                List<User> userList = getAllData();
-                List<User> userListToRole = new ArrayList<>();
-                for (User u : userList) {
-                    if (u.getRole().getId() == strToFind) {
-                        userListToRole.add(u);
-                    }
-                }
-                showUserDetail(userListToRole);
+                findByRole();
                 findUser(user);
             } else if (select == 4) {
-                Boolean strToFind = false;
-                String strInput = AppUtils.typing("Nhập thể loại bạn muốn tìm: 1: Đã có    2: Chưa có");
-                if (strInput.equals("1")) strToFind = true;
-                List<User> userList = getAllData();
-                List<User> userListHasCard = new ArrayList<>();
-                for (User u : userList) {
-                    if (u.isHasCard()) {
-                        userListHasCard.add(u);
-                    }
-                }
-                showUserDetail(userListHasCard);
+                findByisHasCard();
                 findUser(user);
             } else if (select == 0) {
                 UserView.userSelect(user);
             } else System.out.println("Bạn đã nhập không đúng, vui lòng nhập lại!!!");
         } while (select != 0);
     }
-    /**
-     let a = {
-        age : 12
-     }
-
-     console.log(a ||
-     */
+    public  void findByUser(){
+        String strToFind = AppUtils.typing("Nhập tên user bạn muốn tìm");
+        List<User> userList = getAllData();
+        List<User> userListToName = new ArrayList<>();
+        for (User u : userList) {
+            if (u.getUserName().contains(strToFind)) {
+                userListToName.add(u);
+            }
+        }
+        showUserDetail(userListToName);
+    }
+    public void findByGender(){
+        int strToFind = Integer.parseInt(AppUtils.typing("Chọn giới tính :  1: Nam     2: Nữ     3: Bêđê"));
+        List<User> userList = getAllData();
+        List<User> userListToGender = new ArrayList<>();
+        for (User u : userList) {
+            if (u.getGender().getId() == strToFind) {
+                userListToGender.add(u);
+            }
+        }
+        showUserDetail(userListToGender);
+    }
+    public void findByRole(){
+        int strToFind = Integer.parseInt(AppUtils.typing("Nhập thể loại bạn muốn tìm: 1: Đọc giả    2: Quản trị viên"));
+        List<User> userList = getAllData();
+        List<User> userListToRole = new ArrayList<>();
+        for (User u : userList) {
+            if (u.getRole().getId() == strToFind) {
+                userListToRole.add(u);
+            }
+        }
+        showUserDetail(userListToRole);
+    }
+    public void findByisHasCard(){
+        boolean strToFind = false;
+        String strInput = AppUtils.typing("Nhập thể loại bạn muốn tìm: 1: Đã có    2: Chưa có");
+        if (strInput.equals("1")) strToFind = true;
+        List<User> userList = getAllData();
+        List<User> userListHasCard = new ArrayList<>();
+        for (User u : userList) {
+            if (u.isHasCard()) {
+                userListHasCard.add(u);
+            }
+        }
+        showUserDetail(userListHasCard);
+    }
 }

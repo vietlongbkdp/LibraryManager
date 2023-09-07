@@ -23,11 +23,9 @@ public class LibraryCardService{
         return libraryCardList.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
     }
 
-
     public List<LibraryCard> getAllData() {
         return readData();
     }
-
 
     public void addElement(LibraryCard libraryCard) {
         List<LibraryCard> libraryCardList = readData();
@@ -82,10 +80,10 @@ public class LibraryCardService{
                 period = 24;
             }
             String isStatusCard = "";
-            if (DateUltis.getDate(libraryCard.getCreateDate().plusMonths(period), LocalDate.now())>0){
+            if (libraryCard.getCreateDate().plusMonths(period).isBefore(LocalDate.now())){
                 isStatusCard = "Hết hạn";
             }else isStatusCard = "Chưa hết hạn";
-            System.out.printf("|%-4s| %-20s| %-20s| %-20s| %-20s| %-20s|%-20s| %-23s|\n", libraryCard.getId(), user.getUserName(), user.getPhone(), libraryCard.getTypeCard().getName(), libraryCard.getCreateDate(), libraryCard.getCreateDate().plusMonths(period), isStatusCard,libraryCard.getTypeCard().getId()*50000+"đồng");
+            System.out.printf("|%-4s| %-20s| %-20s| %-20s| %-20s| %-20s|%-20s| %-23s|\n", libraryCard.getId(), user.getUserName(), user.getPhone(), libraryCard.getTypeCard().getName(), libraryCard.getCreateDate(), libraryCard.getCreateDate().plusMonths(period), isStatusCard,(double) libraryCard.getTypeCard().getId()*50000+"đồng");
         }
     }
     public static List<LibraryCard> readData() {
@@ -111,8 +109,6 @@ public class LibraryCardService{
         List<LibraryCard> list = getAllData();
         if (list.isEmpty()) return false;
         LibraryCard libraryCardCheck = list.stream().filter(s -> s.getId() == id).findFirst().orElse(null);
-        if (libraryCardCheck == null) {
-            return false;
-        } else return true;
+        return libraryCardCheck != null;
     }
 }

@@ -29,11 +29,9 @@ public class UserView {
         do {
             select = Integer.parseInt(AppUtils.typing("Nhập lựa chọn của bạn: "));
             if(select == 1){
-
+                findUser(user);
             }else if (select ==2){
-                UserService userService = new UserService();
-                userService.addElement(RegisterView.registerNewUser());
-                userService.showData();
+
             }else if (select ==3){
                 updateUser();
             }else if (select ==4){
@@ -73,8 +71,14 @@ public class UserView {
         long id = Long.parseLong(AppUtils.typing("Nhập ID User bạn muốn cập nhật: "));
         userService.updateById(id, RegisterView.registerNewUser());
     }
-    public static void findUser(){
+    public static void findUser(User user){
         UserService userService = new UserService();
         userService.findUser(user);
     }
+    public static void addNewUser(){
+        UserService userService = new UserService();
+        userService.addElement(RegisterView.registerNewUser());
+        userService.showData();
+    }
+
 }

@@ -1,0 +1,12 @@
+1201,Sach Toan,Nguyen Long,Giao duc,true,A,Kiến thức khoa học,10000.0,Sach bai tap,2023-09-07
+1202,Sach Van,Hang Dat,Giao duc,true,A,Tiểu thuyết,12000.0,Sach giao khoa,2023-09-07
+1203,Sach Ly,Le Tuong,Giao Duc,true,A,Tiểu thuyết,15000.0,Sach giai,2023-09-07
+1204,Sach Hoa,Pham Vinh,Kim Dong,true,B,Truyện ngắn,20000.0,Sach Truyen,2023-09-07
+1205,Sach Tieng Anh,Dang Quang,Giao duc,true,B,Kiến thức khoa học,17000.0,Sach nham nhi,2023-09-07
+1206,Sach Lich Su,Viet Long,Kim Dong,true,C,Truyện ngắn,12000.0,1,2023-09-07
+
+1001,quocdat1,Quocdat123@,Hang Quoc Dat,0912837162,Da Nang,1997-03-22,quocdathang@gmail.com,Nam,Đọc giả,false
+1002,long123,Long1234@@,Nguyen Viet Long,0913331916,Hue,1997-05-31,vietlongbkdp@gmai.com,Nam,Quản trị viên,true
+1003,tuongle123,Tuong@123,Le Ba Tuong,0987654321,TP HCM,1998-04-21,tuongle@gmail.com,Nữ,Đọc giả,false
+1004,vinh123,Vinh@123,Le Tan Vinh,0987897623,Hue,2002-11-23,vinh123@gmail.com,Nam,Đọc giả,false
+1005,quang123,Quang123@@,Dang Van Quang,0982746312,TPHCM,1992-03-12,quangdang123@gmail.com,Khác,Đọc giả,false
